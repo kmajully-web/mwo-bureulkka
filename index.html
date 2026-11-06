@@ -1,0 +1,1764 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>뭐 부를까?</title>
+<meta name="description" content="나이별, 주제별로 모은 아기 동요 영상. 내 목록을 만들어 이어서 들어요.">
+<meta name="theme-color" content="#FFFEFA">
+
+<!-- 카톡·SNS 공유 미리보기: 앱 주소가 정해지면 [앱 주소] 두 곳을 바꿔요 -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="뭐 부를까?">
+<meta property="og:description" content="나이별, 주제별로 모은 아기 동요 영상. 내 목록을 만들어 이어서 들어요.">
+<meta property="og:image" content="https://[앱 주소]/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://[앱 주소]/">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- 홈 화면 아이콘 -->
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="뭐 부를까">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jua&family=Gowun+Dodum&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #FFFEFA;
+    --grid: #EEF1F6;
+    --desk: #ECE8E0;
+    --ink: #2E3440;
+    --muted: #4C566A;
+    --line: #E2E6EE;
+    --dash: #B9C0CC;
+    --navy: #26335C;
+    --navy-ink: #1F2640;
+    --coral: #CC4E33;
+    --coral-soft: #FFE3DB;
+    --yellow: #FFD35C;
+    --yellow-soft: #FFF1C9;
+    --mint: #3E9C7D;
+    --mint-ink: #1F5C48;
+    --mint-soft: #DDF3EA;
+    --sky: #2F72C4;
+    --sky-soft: #E3EEFC;
+    --warn: #7A4E00;
+    --pink: #C2335B;
+  }
+  * { box-sizing: border-box; }
+  html { background: var(--desk); }
+  body { margin: 0; font-family: 'Gowun Dodum', sans-serif; color: var(--ink); -webkit-tap-highlight-color: transparent; }
+  button { font-family: inherit; cursor: pointer; color: inherit; }
+  a { color: var(--sky); }
+  .jua { font-family: 'Jua', sans-serif; font-weight: 400; }
+
+  .app {
+    position: relative; max-width: 480px; margin: 0 auto; min-height: 100vh;
+    background-color: var(--paper);
+    background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 22px 22px;
+    display: flex; flex-direction: column; overflow: hidden;
+  }
+  .app > * { position: relative; }
+  .app.selecting { padding-bottom: 150px; }
+
+  /* ---------- 홈 머리: 크레파스 피아노 + 곰 + 실로폰 ---------- */
+  .keys { display: block; width: 100%; height: auto; aspect-ratio: 1200 / 131; flex-shrink: 0; }
+  .hero { position: relative; flex-shrink: 0; width: 100%; aspect-ratio: 3 / 1; background: url(header-art.png) center top / 100% auto no-repeat; }
+  .hd { position: absolute; left: 0; right: 27%; top: 30%; padding: 0 0 0 14px; display: flex; align-items: center; gap: 6px; }
+  .hd .char { width: clamp(56px, 18vw, 80px); height: clamp(56px, 18vw, 80px); object-fit: contain; flex-shrink: 0; }
+  .hd .txt { flex: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+  .hd .sub { font-size: 12px; color: var(--muted); white-space: nowrap; }
+  .hd h1 { margin: 0; font-size: clamp(26px, 8.6vw, 38px); line-height: 1.1; white-space: nowrap; }
+
+  .pickbtn { width: calc(100% - 40px); margin: 4px 20px 0; min-height: 52px; border-radius: 16px; border: none; background: var(--yellow); font-size: 18px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+
+  .ages { margin: 14px 20px 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; align-items: center; }
+  .age { border-radius: 10px; border: 2px solid transparent; font-size: 13px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; padding: 0 2px; word-break: keep-all; }
+  .age .pegs { display: flex; gap: 22px; }
+  .age .pegs i { width: 5px; height: 5px; border-radius: 3px; background: #fff; display: block; }
+  .age.a0 { height: 62px; background: #FFD0C7; color: #5A1A0E; }
+  .age.a1 { height: 56px; background: #FFE3A3; color: #4A3300; }
+  .age.a2 { height: 50px; background: #CDEEDD; color: #154A33; }
+  .age.a3 { height: 44px; background: #D6E7FA; color: #163F70; }
+  .age.on { font-family: 'Jua', sans-serif; font-size: 14px; }
+  .age.a0.on { background: #F28B7A; border-color: #A8382B; color: #3D0F08; }
+  .age.a1.on { background: #FFC94D; border-color: #A87A00; color: #3A2800; }
+  .age.a2.on { background: #8ED1AE; border-color: #2F7F5C; color: #0F3A27; }
+  .age.a3.on { background: #7FB8E8; border-color: #2C5EA8; color: #0E2E55; }
+
+  .homebar, .newbar, .notice { margin: 14px 20px 0; padding: 10px 8px 10px 14px; border-radius: 14px; display: flex; align-items: center; gap: 10px; font-size: 14px; }
+  .homebar { background: var(--sky-soft); color: #1F4677; }
+  .newbar { background: var(--yellow-soft); color: var(--warn); }
+  .notice { background: var(--yellow-soft); color: var(--warn); padding-right: 14px; line-height: 1.5; }
+  .homebar .txt, .newbar .txt { flex: 1; font-weight: 700; }
+  .homebar .txt { font-size: 13px; }
+  .homebar .minibtn { padding: 0 4px; }
+  .pill { font-size: 11px; font-weight: 700; color: #fff; background: var(--pink); border-radius: 10px; padding: 2px 8px; }
+  .minibtn { border: none; background: none; font-size: 13px; min-height: 36px; padding: 0 8px; text-decoration: underline; color: inherit; }
+
+  .views { margin: 14px 20px 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
+  .view { min-height: 42px; border-radius: 12px; border: 2px dashed var(--dash); background: #fff; font-size: 14px; color: var(--muted); }
+  .view.on { border: 2px solid var(--ink); background: var(--ink); color: #fff; }
+
+  .sec { padding: 18px 20px 0; }
+  .sec h2 { margin: 0; font-family: 'Jua', sans-serif; font-weight: 400; font-size: 19px; }
+  .row { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; margin-bottom: 10px; }
+  .count { font-size: 13px; color: var(--muted); font-family: 'Gowun Dodum', sans-serif; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { min-height: 36px; padding: 0 12px; border-radius: 12px; border: 2px dashed var(--dash); background: #fff; font-size: 13px; }
+  .chip.on { border: 2px solid #C98A00; background: var(--yellow-soft); color: var(--warn); }
+
+  .actions { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+  .abtn { min-height: 38px; padding: 0 12px; border-radius: 19px; border: 2px solid var(--navy); background: #fff; color: var(--navy); font-size: 13px; display: flex; align-items: center; gap: 4px; }
+  .abtn.main { background: var(--navy); color: #fff; }
+  .abtn.on { background: var(--yellow); border-color: var(--navy); color: var(--navy-ink); font-weight: 700; }
+
+  /* ---------- 노래 줄 (시안 2) ---------- */
+  .songs { display: flex; flex-direction: column; gap: 8px; }
+  .song { position: relative; width: 100%; display: flex; align-items: center; gap: 12px; padding: 8px; border-radius: 14px; border: 2px solid transparent; background: #fff; text-align: left; font-size: inherit; box-shadow: 0 1px 2px rgba(31,38,64,.1); }
+  .song.picked { border-color: var(--navy); background: #FFFBEA; }
+  .song.now { border-color: var(--yellow); }
+  .thumbwrap { position: relative; flex-shrink: 0; width: 112px; aspect-ratio: 16 / 9; border-radius: 8px; overflow: hidden; display: block; }
+  .thumbwrap.c0 { background: #FFE2D9; } .thumbwrap.c1 { background: #DCEFE6; } .thumbwrap.c2 { background: #E1E8F8; } .thumbwrap.c3 { background: #FFF0C6; }
+  .thumbph { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: var(--ink); opacity: .35; }
+  .thumb { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .thumb.fail { display: none; }
+  .badge { position: absolute; left: 4px; top: 4px; font-size: 10px; font-weight: 700; color: #fff; background: #D9483A; border-radius: 6px; padding: 1px 6px; }
+  .ytmark { position: absolute; right: 4px; bottom: 4px; font-size: 10px; color: #fff; background: rgba(31,38,64,.8); border-radius: 5px; padding: 1px 4px; }
+  .sbody { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+  .stitle { font-family: 'Jua', sans-serif; font-size: 16px; line-height: 1.3; word-break: keep-all; }
+  .smeta { font-size: 12px; color: #4A5170; line-height: 1.4; }
+  .sicon { flex-shrink: 0; width: 38px; height: 38px; border-radius: 19px; background: var(--yellow); display: flex; align-items: center; justify-content: center; color: var(--navy-ink); }
+  .check { flex-shrink: 0; width: 30px; height: 30px; margin: 4px; border-radius: 9px; border: 2.5px solid var(--dash); background: #fff; display: flex; align-items: center; justify-content: center; color: #fff; }
+  .song.picked .check { background: var(--navy); border-color: var(--navy); }
+  .order { position: absolute; left: -4px; top: -6px; min-width: 22px; height: 22px; border-radius: 11px; background: var(--navy); color: #fff; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; padding: 0 6px; }
+  .rmbtn { flex-shrink: 0; display: flex; align-items: center; min-height: 38px; padding: 0 10px; border-radius: 12px; border: 2px dashed var(--dash); background: #fff; font-size: 12px; color: var(--muted); }
+
+  .empty { padding: 18px 16px 20px; text-align: center; color: var(--muted); font-size: 14px; line-height: 1.6; background: #fff; border-radius: 16px; border: 2px dashed var(--line); display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .empty img { width: 92px; height: 92px; object-fit: contain; }
+  .empty .minibtn { color: var(--sky); }
+
+  /* ---------- 내 목록 ---------- */
+  .lists { display: flex; flex-direction: column; gap: 10px; }
+  .lcard { background: #fff; border-radius: 16px; border: 2px solid var(--line); padding: 12px; display: flex; flex-direction: column; gap: 10px; }
+  .lcard .top { display: flex; align-items: center; gap: 10px; }
+  .lcard .ic { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .lcard .ic.c0 { background: #FFD0C7; } .lcard .ic.c1 { background: #FFE3A3; } .lcard .ic.c2 { background: #CDEEDD; } .lcard .ic.c3 { background: #D6E7FA; } .lcard .ic.c4 { background: #E6DBF7; }
+  .lcard .name { flex: 1; min-width: 0; font-family: 'Jua', sans-serif; font-size: 18px; word-break: keep-all; }
+  .lcard .n { font-family: 'Gowun Dodum', sans-serif; font-size: 13px; color: var(--muted); }
+  .lcard .btns { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+  .newlist { width: 100%; min-height: 50px; border-radius: 16px; border: 2px dashed var(--dash); background: #fff; font-size: 15px; display: flex; align-items: center; justify-content: center; gap: 6px; }
+  .tip { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+  /* ---------- 골라 듣기 아래 막대 ---------- */
+  .selbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 50; display: flex; justify-content: center; pointer-events: none; }
+  .selbar .in { pointer-events: auto; width: 100%; max-width: 480px; background: var(--navy); color: #fff; border-radius: 22px 22px 0 0; padding: 12px 16px calc(14px + env(safe-area-inset-bottom)); display: flex; flex-direction: column; gap: 10px; box-shadow: 0 -4px 16px rgba(31,38,64,.25); }
+  .selbar .info { display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 14px; }
+  .selbar .info b { font-family: 'Jua', sans-serif; font-weight: 400; font-size: 18px; color: var(--yellow); }
+  .selbar .info button { border: none; background: none; color: #C9D2EE; text-decoration: underline; font-size: 13px; min-height: 36px; }
+  .selbar .btns { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+  .selbar .sb { min-height: 46px; border-radius: 14px; border: none; background: rgba(255,255,255,.14); color: #fff; font-size: 14px; display: flex; align-items: center; justify-content: center; gap: 4px; }
+  .selbar .sb.go { background: var(--yellow); color: var(--navy-ink); font-family: 'Jua', sans-serif; font-size: 16px; }
+  .selbar .sb:disabled { opacity: .4; }
+
+  .shopcard { margin: 22px 20px 0; padding: 14px; border-radius: 16px; background: #fff; border: 2px solid var(--yellow); display: flex; flex-direction: column; gap: 10px; }
+  .disc { margin: 0; padding: 8px 10px; border-radius: 10px; background: var(--yellow-soft); color: var(--warn); font-size: 12px; line-height: 1.5; }
+  .shopbtn { min-height: 50px; border-radius: 14px; background: var(--yellow); color: var(--ink); display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; font-family: 'Jua', sans-serif; font-size: 17px; }
+
+  .ft { margin-top: auto; padding: 28px 20px 22px; font-size: 11px; line-height: 1.7; color: var(--muted); }
+  .ft p { margin: 0 0 6px; }
+  .ft .links { display: flex; flex-wrap: wrap; gap: 4px 12px; }
+  .ft a { color: var(--muted); }
+
+  /* ---------- 아래에서 올라오는 창 ---------- */
+  .layer { position: fixed; inset: 0; z-index: 60; background: rgba(46,52,64,.55); display: flex; align-items: flex-end; justify-content: center; }
+  .sheet { width: 100%; max-width: 480px; max-height: 92vh; overflow-y: auto; background: var(--paper); border-radius: 28px 28px 0 0; padding: 20px 20px calc(24px + env(safe-area-inset-bottom)); display: flex; flex-direction: column; gap: 14px; }
+  .sheet h2 { margin: 0; font-family: 'Jua', sans-serif; font-weight: 400; font-size: 23px; text-align: center; }
+  .sheet p { margin: 0; font-size: 14px; line-height: 1.6; color: var(--muted); text-align: center; }
+  .sheetchar { width: 110px; height: 110px; object-fit: contain; align-self: center; }
+  .sheetbtns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .sbtn { min-height: 50px; border-radius: 16px; border: 2px solid var(--line); background: #fff; font-size: 15px; display: flex; align-items: center; justify-content: center; text-decoration: none; color: var(--ink); }
+  .sbtn.go { background: var(--yellow); border-color: var(--yellow); font-family: 'Jua', sans-serif; font-size: 17px; }
+  .sbtn.danger { background: #FCE4DF; border-color: #F2B8AC; color: #8A2A18; }
+  .sclose { border: none; background: none; color: var(--muted); font-size: 14px; min-height: 40px; }
+  .pickrow { display: flex; flex-direction: column; gap: 8px; }
+  .pickopt { width: 100%; min-height: 52px; border-radius: 14px; border: 2px solid var(--line); background: #fff; padding: 0 14px; display: flex; align-items: center; gap: 10px; font-size: 15px; text-align: left; }
+  .pickopt .nm { flex: 1; min-width: 0; font-family: 'Jua', sans-serif; font-size: 16px; }
+  .pickopt .st { font-size: 12px; color: var(--muted); }
+  .pickopt.in { border-color: var(--mint); background: var(--mint-soft); }
+  .namebox { display: flex; gap: 8px; }
+  .namebox label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .namebox input { flex: 1; min-width: 0; min-height: 50px; border-radius: 14px; border: 2px solid var(--dash); padding: 0 14px; font-size: 16px; font-family: inherit; background: #fff; color: var(--ink); }
+  .namebox input:focus { outline: none; border-color: var(--navy); }
+  .namebox button { flex-shrink: 0; min-height: 50px; padding: 0 16px; border-radius: 14px; border: none; background: var(--navy); color: #fff; font-size: 15px; }
+  .msg { min-height: 20px; text-align: center; font-size: 13px; color: #B3361F; }
+
+  .quiz { font-family: 'Jua', sans-serif; font-size: 44px; text-align: center; }
+  .answer { display: flex; justify-content: center; gap: 8px; }
+  .answer span { width: 56px; height: 64px; border-radius: 14px; border: 2px solid var(--line); background: #fff; display: flex; align-items: center; justify-content: center; font-family: 'Jua', sans-serif; font-size: 30px; }
+  .answer.bad span { border-color: #D9483A; }
+  .pad { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+  .key { min-height: 54px; border-radius: 14px; border: none; background: #F1EEE7; font-family: 'Jua', sans-serif; font-size: 24px; }
+  .key.blank { visibility: hidden; }
+
+  /* ---------- 노래 듣기 화면 ---------- */
+  .ptop { padding: 12px 10px 0; display: flex; align-items: center; gap: 2px; }
+  .iconbtn { width: 44px; height: 44px; flex-shrink: 0; border: none; background: none; display: flex; align-items: center; justify-content: center; padding: 0; border-radius: 12px; }
+  .favbtn[aria-pressed="true"] { color: var(--pink); }
+  .lockbtn { width: auto; padding: 0 10px; gap: 4px; font-size: 13px; background: var(--sky-soft); color: #1F4677; }
+  .ptitle { flex: 1; margin: 0; font-family: 'Jua', sans-serif; font-weight: 400; font-size: 22px; line-height: 1.25; word-break: keep-all; }
+  .pinfo { padding: 2px 20px 0 56px; font-size: 13px; color: var(--muted); }
+  .playwrap { margin: 8px 16px 0; }
+  .video { position: relative; aspect-ratio: 16 / 9; border-radius: 10px; overflow: hidden; background: #1C2230; border: 6px solid #fff; box-shadow: 0 1px 3px rgba(46,52,64,.15); }
+  .video iframe, .video #yt { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .err { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; color: #E2E8F5; font-size: 14px; text-align: center; padding: 20px; line-height: 1.5; background: #1C2230; }
+  .err a { color: var(--yellow); }
+  .vsub { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: 8px; }
+  .src { font-size: 12px; color: var(--muted); padding-left: 4px; }
+  .bigbtn { flex-shrink: 0; min-height: 36px; padding: 0 12px; border-radius: 18px; border: 2px dashed var(--dash); background: #fff; font-size: 13px; display: flex; align-items: center; gap: 6px; }
+  .bigctrls { display: none; }
+
+  .qinfo { margin-top: 14px; text-align: center; font-size: 13px; color: var(--muted); }
+  .qinfo b { color: var(--navy); }
+  .ctrls { display: flex; justify-content: center; align-items: flex-start; gap: 18px; margin-top: 12px; }
+  .cbtn { display: flex; flex-direction: column; align-items: center; gap: 4px; border: none; background: none; font-size: 12px; padding: 0; min-width: 64px; }
+  .cbtn .ic { width: 52px; height: 52px; border-radius: 26px; background: #fff; border: 2px solid var(--line); display: flex; align-items: center; justify-content: center; }
+  .cbtn.main .ic { width: 72px; height: 72px; border-radius: 36px; background: var(--yellow); border: none; }
+  .cbtn:disabled { opacity: .35; }
+  .toggles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; margin-top: 16px; }
+  .tg { min-height: 46px; border-radius: 14px; border: 2px dashed var(--dash); background: #fff; font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 4px; }
+  .tg[aria-pressed="true"] { border: 2px solid var(--mint); background: var(--mint-soft); color: var(--mint-ink); font-weight: 700; }
+
+  .items { margin-top: 10px; background: #fff; border-radius: 16px; padding: 12px 0 12px 12px; border: 2px solid var(--line); }
+  .items .disc { margin: 0 12px 10px 0; }
+  .ilist { display: flex; gap: 10px; overflow-x: auto; padding-right: 12px; scrollbar-width: none; }
+  .ilist::-webkit-scrollbar { display: none; }
+  .item { flex: 0 0 148px; display: flex; flex-direction: column; border: 2px solid var(--line); border-radius: 14px; overflow: hidden; text-decoration: none; color: var(--ink); background: #fff; }
+  .item .iimg { width: 100%; aspect-ratio: 1; object-fit: cover; background: var(--paper); display: block; }
+  .item .iimg.fail { visibility: hidden; }
+  .item .ibody { padding: 8px 10px 10px; display: flex; flex-direction: column; gap: 2px; }
+  .item .iname { font-size: 13px; font-weight: 700; line-height: 1.35; word-break: keep-all; }
+  .item .idesc { font-size: 11px; color: var(--muted); line-height: 1.4; word-break: keep-all; }
+
+  /* ---------- 아이 모드 ---------- */
+  .kidbar { display: none; }
+  body.kid .nk { display: none !important; }
+  body.kid .kidbar { display: flex; margin: 12px 16px 0; padding: 10px 10px 10px 12px; border-radius: 16px; background: var(--sky-soft); align-items: center; gap: 10px; }
+  .kidbar img { width: 44px; height: 44px; object-fit: contain; }
+  .kidbar .txt { flex: 1; font-size: 14px; font-weight: 700; color: #1F4677; line-height: 1.4; }
+  .kidbar button { min-height: 44px; padding: 0 12px; border-radius: 12px; border: 2px solid #9CB9E3; background: #fff; font-size: 13px; color: #1F4677; }
+  body.kid .ctrls { margin-top: 20px; }
+
+  /* ---------- 크게 보기 ----------
+     유튜브 정책상 플레이어 위를 덮지 않고, 버튼은 영상 옆(가로) 또는 아래(세로)에 둡니다. */
+  body.big { overflow: hidden; }
+  body.big .playwrap { position: fixed; inset: 0; z-index: 40; margin: 0; background: #000; display: flex; flex-direction: column;
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left); }
+  body.big .video { flex: 1; min-height: 0; aspect-ratio: auto; border: none; border-radius: 0; box-shadow: none; background: #000; }
+  body.big .vsub { display: none; }
+  body.big .bigctrls { display: flex; flex-shrink: 0; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap; padding: 12px 12px 16px; background: #141820; }
+  @media (orientation: landscape) {
+    body.big .playwrap { flex-direction: row; }
+    body.big .bigctrls { flex-direction: column; flex-wrap: nowrap; width: 132px; padding: 10px 8px; overflow-y: auto; }
+  }
+  .bc { min-width: 44px; min-height: 44px; border-radius: 22px; border: none; background: rgba(255,255,255,.14); color: #fff; display: flex; align-items: center; justify-content: center; gap: 4px; padding: 0 12px; font-size: 13px; }
+  .bc.main { background: var(--yellow); color: var(--ink); min-width: 56px; min-height: 56px; border-radius: 28px; }
+  .bc[aria-pressed="true"] { background: var(--yellow); color: var(--ink); font-weight: 700; }
+  .bc:disabled { opacity: .35; }
+  .bcnow { color: #fff; font-size: 12px; text-align: center; max-width: 180px; }
+  .bc.kidonly { display: none; }
+  body.kid .bc.kidonly { display: flex; }
+
+  /* ---------- 안내 페이지 ---------- */
+  .page { padding: 4px 20px 0; line-height: 1.7; font-size: 15px; }
+  .page h2 { margin: 22px 0 8px; font-family: 'Jua', sans-serif; font-weight: 400; font-size: 20px; }
+  .page p, .page ul, .page ol { margin: 0 0 10px; }
+  .page ul, .page ol { padding-left: 22px; }
+  .page li { margin-bottom: 4px; }
+  .page .box { background: #fff; border: 2px solid var(--line); border-radius: 16px; padding: 14px 16px; margin-bottom: 12px; }
+  .page .box.hi { border-color: var(--yellow); }
+  .page .tip { font-size: 13px; color: var(--muted); }
+  .page .installbtn { width: 100%; min-height: 50px; border-radius: 16px; border: none; background: var(--yellow); font-family: 'Jua', sans-serif; font-size: 17px; margin-bottom: 12px; }
+  .page b { font-weight: 700; }
+</style>
+<!-- 방문 통계 (Vercel Web Analytics) -->
+<script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+<div class="app" id="app"></div>
+<div id="selbar"></div>
+<div id="layer"></div>
+
+<script>
+/* =========================================================
+   설정 — 여기만 고치면 됩니다
+   ========================================================= */
+const CONFIG = {
+  // 구글 시트 "동요 목록" 탭을 웹에 게시(CSV)한 주소. 비워두면 아래 예시 목록으로 동작해요.
+  SHEET_CSV_URL: '',
+  // 구글 시트 "추천템" 탭을 웹에 게시(CSV)한 주소. 비워두면 공통 쿠팡 링크만 보여요.
+  ITEMS_CSV_URL: '',
+  // 공통 쿠팡 파트너스 링크
+  COUPANG_URL: 'https://link.coupang.com/a/iphw4uGy3o',
+  SHOP_LABEL: '사운드북·동요 장난감 보러 가기',
+  APP_NAME: '뭐 부를까?',
+  CONTACT: 'oneul.webapp@gmail.com',
+  DEFAULT_AGE: '2~3세',
+  NEW_DAYS: 14,
+  MAX_LISTS: 5,
+  LIST_NAME_MAX: 12
+};
+
+const AGES = ['12~24개월', '2~3세', '4~5세', '6~7세'];
+const CAT_ORDER = ['동물', '탈것', '가족·몸', '율동', '생활습관', '계절·생일', '영어동요', '자장가'];
+const STORE_KEY = 'song-app-v1';
+
+/* 음악 친구들 */
+const CHARS = {
+  bear:    { src: 'bear.png',    name: '곰' },
+  bunny:   { src: 'bunny.png',   name: '토끼' },
+  raccoon: { src: 'raccoon.png', name: '너구리' },
+  chick:   { src: 'chick.png',   name: '병아리' }
+};
+const DISCLOSURE = '이 게시물은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.';
+
+const SAMPLE_CSV = `노래 이름,유튜브 주소,나이,주제,길이,채널명,추가일,확인 필요
+상어 가족,https://www.youtube.com/watch?v=761ae_KDg_Q,"12~24개월, 2~3세","동물, 율동",,핑크퐁,2026-11-07,
+아기상어 특집 모음,https://www.youtube.com/watch?v=j5-mTBP9O7E,"12~24개월, 2~3세","동물, 율동",모음,핑크퐁,2026-11-07,
+동물 동요 BEST 100분,https://www.youtube.com/watch?v=AOngWAA8q_g,"2~3세, 4~5세",동물,모음 약 100분,핑크퐁,2026-11-07,
+동물 동요 메들리,https://www.youtube.com/watch?v=X7SGcVQd1FA,"2~3세, 4~5세",동물,모음,핑크퐁,2026-11-07,
+공룡 동요동화 모음,https://www.youtube.com/watch?v=Z6bVY6Q87xY,"4~5세, 6~7세",동물,모음,핑크퐁,2026-11-07,
+세계 공룡의 날 특집,https://www.youtube.com/watch?v=2Rwu_00339E,"4~5세, 6~7세",동물,모음,핑크퐁 추정,2026-11-07,확인
+베베핀 공룡 동요 모음,https://www.youtube.com/watch?v=jFMph3P9owI,"4~5세, 6~7세",동물,모음,베베핀,2026-11-07,
+티라노사우루스 렉스 외 신곡 모음,https://www.youtube.com/watch?v=Uh20sVbpRAQ,"4~5세, 6~7세",동물,모음,베베핀,2026-11-07,
+야옹! 아기 고양이 모음,https://www.youtube.com/watch?v=XsHwu87IuNQ,"12~24개월, 2~3세",동물,모음,베베핀 추정,2026-11-07,확인
+동물 소리,https://www.youtube.com/watch?v=RHidMkiAeEs,"12~24개월, 2~3세",동물,,베베핀 추정,2026-11-07,확인
+자동차 동요 모음,https://www.youtube.com/watch?v=kw_zTVuatk4,"2~3세, 4~5세",탈것,모음,핑크퐁,2026-11-07,
+탈것 동요 BEST 모음,https://www.youtube.com/watch?v=kfTnAVSbwbU,"2~3세, 4~5세",탈것,모음,핑크퐁,2026-11-07,
+재미있는 탈것,https://www.youtube.com/watch?v=CGhkoWZtPT0,"2~3세, 4~5세",탈것,,핑크퐁,2026-11-07,
+택배차 자동차 퀴즈,https://www.youtube.com/watch?v=p7v64fQvCog,"2~3세, 4~5세",탈것,,핑크퐁,2026-11-07,
+부릉부릉 자동차 동요 모음,https://www.youtube.com/watch?v=ZPQuCQoaMQg,"2~3세, 4~5세",탈것,모음,핑크퐁,2026-11-07,
+겨울 자동차 구조대,https://www.youtube.com/watch?v=5oqMX2f-ZRA,"2~3세, 4~5세","탈것, 계절·생일",,핑크퐁 추정,2026-11-07,확인
+뛰뛰빵빵 박스 버스,https://www.youtube.com/watch?v=FjmaEyxfo8Y,"12~24개월, 2~3세",탈것,,베베핀 추정,2026-11-07,확인
+무지개 미끄럼틀 색깔 버스,https://www.youtube.com/watch?v=6v4bWzv7DY4,"12~24개월, 2~3세",탈것,,베베핀 추정,2026-11-07,확인
+탈것 놀이 동요,https://www.youtube.com/watch?v=zSMsQrp1DxU,2~3세,탈것,모음,베베핀 추정,2026-11-07,확인
+열 대의 자동차 부릉부릉,https://www.youtube.com/watch?v=i9Movny27Gw,"2~3세, 4~5세",탈것,,베베핀 추정,2026-11-07,확인
+타요 오프닝송 HEY TAYO,https://www.youtube.com/watch?v=j-LcoJ73vsI,"2~3세, 4~5세",탈것,,꼬마버스 타요,2026-11-07,
+타요 오프닝송 외 13곡,https://www.youtube.com/watch?v=bSbwirAVt7Q,"2~3세, 4~5세",탈것,모음 약 60분,꼬마버스 타요,2026-11-07,
+타요 즐거운 여행 외 13곡,https://www.youtube.com/watch?v=sJqU3I0ZCck,"2~3세, 4~5세",탈것,모음 약 60분,꼬마버스 타요,2026-11-07,
+호기심송·인체송 모음,https://www.youtube.com/watch?v=0rCMJkLh9VA,"4~5세, 6~7세",가족·몸,모음,핑크퐁,2026-11-07,
+우리 가족 사랑해,https://www.youtube.com/watch?v=RBA4l3ygS_Q,"2~3세, 4~5세",가족·몸,,핑크퐁 추정,2026-11-07,확인
+엄마 아빠 이만큼 사랑해요,https://www.youtube.com/watch?v=gGHphfldENw,"2~3세, 4~5세",가족·몸,,핑크퐁 추정,2026-11-07,확인
+우리 가족이 최고야,https://www.youtube.com/watch?v=dkict2_PxE4,"2~3세, 4~5세",가족·몸,,핑크퐁 추정,2026-11-07,확인
+엄마 아빠와 놀아요,https://www.youtube.com/watch?v=eB2ywep_ogg,"12~24개월, 2~3세",가족·몸,,핑크퐁 추정,2026-11-07,확인
+엄마 배 속에 아기가 생겼어요,https://www.youtube.com/watch?v=ZvU78UBgF5M,"2~3세, 4~5세",가족·몸,,베베핀 추정,2026-11-07,확인
+"온 가족이 듣는 인기 동요 모음 (방귀 가족, 곰 세 마리)",https://www.youtube.com/watch?v=VrqmI6Or6h0,"2~3세, 4~5세",가족·몸,모음,코코비 추정,2026-11-07,확인
+튼튼쌤 율동체조 스포츠 편,https://www.youtube.com/watch?v=Hp8bJFdTkzE,"4~5세, 6~7세",율동,,핑크퐁,2026-11-07,
+튼튼쌤 율동체조 자동차 편,https://www.youtube.com/watch?v=Ev7K60ybXKM,"2~3세, 4~5세","율동, 탈것",,핑크퐁,2026-11-07,
+생활습관 율동체조 70분,https://www.youtube.com/watch?v=I6Ua-NKM__c,"2~3세, 4~5세","율동, 생활습관",모음 약 70분,핑크퐁,2026-11-07,
+가족과 함께 신나는 베베핀송 체조,https://www.youtube.com/watch?v=BwpsZENepZk,"2~3세, 4~5세",율동,,베베핀,2026-11-07,
+베베핀 어린이 인기 동요 BEST,https://www.youtube.com/watch?v=fDzNCtFeixo,"12~24개월, 2~3세",율동,모음,베베핀,2026-11-07,
+베베핀 어린이 인기 동요 BEST 2,https://www.youtube.com/watch?v=jCa5zWxt0-I,"12~24개월, 2~3세",율동,모음,베베핀,2026-11-07,
+베베핀 1월 인기 신곡,https://www.youtube.com/watch?v=saG_Y9tJQDs,"2~3세, 4~5세",율동,모음,베베핀,2026-11-07,
+베베핀 중독성 동요,https://www.youtube.com/watch?v=KaoY21dECII,"2~3세, 4~5세",율동,모음,베베핀,2026-11-07,
+베베핀 호기심 동요 모음,https://www.youtube.com/watch?v=x44Aza3S6RM,"4~5세, 6~7세",가족·몸,모음,베베핀,2026-11-07,
+핑크퐁 손씻기송,https://www.youtube.com/watch?v=pyoVHOl2rrU,"12~24개월, 2~3세",생활습관,,핑크퐁,2026-11-07,
+아기상어와 6단계 손 씻기,https://www.youtube.com/watch?v=JvfyAtvZRvk,"2~3세, 4~5세",생활습관,,핑크퐁,2026-11-07,
+치카치카 끄응차 하루 습관,https://www.youtube.com/watch?v=ZZF-5bNuAic,"12~24개월, 2~3세",생활습관,,핑크퐁 추정,2026-11-07,확인
+화가 날 때는 셋까지 세어봐요,https://www.youtube.com/watch?v=3P8Wi2kbVFY,"4~5세, 6~7세",생활습관,모음,핑크퐁,2026-11-07,
+참지 말고 응가해요 모음,https://www.youtube.com/watch?v=-tAH804uGC8,"12~24개월, 2~3세",생활습관,모음,핑크퐁,2026-11-07,
+참지 말고 응가해요,https://www.youtube.com/watch?v=0ONQxkSO-Gc,"12~24개월, 2~3세",생활습관,,핑크퐁 추정,2026-11-07,확인
+바른 생활 베베핀 특집,https://www.youtube.com/watch?v=OkZ6LbBm6nw,"2~3세, 4~5세",생활습관,모음,베베핀,2026-11-07,
+치카치카 이 닦자,https://www.youtube.com/watch?v=Q8DjuGVVdvQ,"12~24개월, 2~3세",생활습관,,베베핀 추정,2026-11-07,확인
+건강한 생활습관 배워볼래요,https://www.youtube.com/watch?v=l-Csk49j-8U,"2~3세, 4~5세",생활습관,,베베핀 추정,2026-11-07,확인
+우리 아이 배변 교육,https://www.youtube.com/watch?v=Sbi37geXzXI,"12~24개월, 2~3세",생활습관,,베베핀 추정,2026-11-07,확인
+아침송,https://www.youtube.com/watch?v=9GQzf3MytPs,"12~24개월, 2~3세",생활습관,,베베핀 추정,2026-11-07,확인
+골고루 먹어요,https://www.youtube.com/watch?v=1Lr4y8yNyTM,"2~3세, 4~5세",생활습관,,베베핀 추정,2026-11-07,확인
+어린이 안전 교육 동요,https://www.youtube.com/watch?v=EutKWRs6sew,"4~5세, 6~7세",생활습관,,베베핀 추정,2026-11-07,확인
+좋아 좋아! 싫어 싫어!,https://www.youtube.com/watch?v=jt1xy0WTM5o,"2~3세, 4~5세",생활습관,,코코비 추정,2026-11-07,확인
+차에서는 카시트에 앉아요,https://www.youtube.com/watch?v=f7TJ_NzmPww,"2~3세, 4~5세","생활습관, 탈것",,코코비 추정,2026-11-07,확인
+생일 축하해 핑크퐁,https://www.youtube.com/watch?v=-OxDWjIX8tU,"2~3세, 4~5세",계절·생일,,핑크퐁 추정,2026-11-07,확인
+핑크퐁 생일 파티 동요 모음,https://www.youtube.com/watch?v=ImExWroHu1Q,"2~3세, 4~5세",계절·생일,모음,핑크퐁,2026-11-07,
+생일 축하합니다,https://www.youtube.com/watch?v=zxl8_GZLV04,"12~24개월, 2~3세, 4~5세, 6~7세",계절·생일,,[채널명 확인],2026-11-07,확인
+생일 축하 노래 특집,https://www.youtube.com/watch?v=o17WrC9v-Ew,"2~3세, 4~5세, 6~7세",계절·생일,모음,[채널명 확인],2026-11-07,확인
+봄 동요 모음,https://www.youtube.com/watch?v=X7jmN8P7XyE,"2~3세, 4~5세",계절·생일,모음,핑크퐁,2026-11-07,
+가을 동요,https://www.youtube.com/watch?v=w2LsbBpM5QQ,"2~3세, 4~5세",계절·생일,,핑크퐁,2026-11-07,
+무슨 계절이 좋아?,https://www.youtube.com/watch?v=LnF6IYtutC0,"4~5세, 6~7세",계절·생일,,핑크퐁 추정,2026-11-07,확인
+겨울 동요 스페셜 모음,https://www.youtube.com/watch?v=YbgPgKBeoOU,"2~3세, 4~5세",계절·생일,모음,핑크퐁 추정,2026-11-07,확인
+비야 비야 어서와 외 6월 신곡,https://www.youtube.com/watch?v=tz-xsbZrLyg,"2~3세, 4~5세",계절·생일,모음,베베핀,2026-11-07,
+베베핀 여름 동요 몰아보기,https://www.youtube.com/watch?v=kBbKdC0UPmQ,"2~3세, 4~5세",계절·생일,모음,베베핀,2026-11-07,
+추운 겨울 이제 안녕,https://www.youtube.com/watch?v=h8SK8ZCaB0s,"2~3세, 4~5세",계절·생일,,베베핀 추정,2026-11-07,확인
+꿀잠친구 자장가 1,https://www.youtube.com/watch?v=Qv7aYIQUT3E,"12~24개월, 2~3세",자장가,모음,핑크퐁 추정,2026-11-07,확인
+꿀잠친구 자장가 2,https://www.youtube.com/watch?v=MvqmLf6P6zw,"12~24개월, 2~3세",자장가,모음,핑크퐁 추정,2026-11-07,확인
+자장가 모음,https://www.youtube.com/watch?v=TYRZPulonzg,"12~24개월, 2~3세",자장가,모음,베베핀 추정,2026-11-07,확인
+자장자장 베베핀 (연주),https://www.youtube.com/watch?v=fodKF-eOlJw,"12~24개월, 2~3세",자장가,,베베핀,2026-11-07,
+Baby Shark Dance,https://www.youtube.com/watch?v=XqZsoesa55w,"2~3세, 4~5세, 6~7세","영어동요, 율동",,Pinkfong,2026-11-07,
+Where Is My Body Song,https://www.youtube.com/watch?v=C1vT1AVMBDA,"4~5세, 6~7세","영어동요, 가족·몸",,Pinkfong,2026-11-07,
+Wheels on the Bus (JJ's Animal Time),https://www.youtube.com/watch?v=Evi84Pf-udI,"2~3세, 4~5세","영어동요, 탈것",,CoComelon,2026-11-07,
+Wheels on the Bus,https://www.youtube.com/watch?v=e_04ZrNroTo,"2~3세, 4~5세","영어동요, 탈것",,CoComelon 추정,2026-11-07,확인
+Bath Song,https://www.youtube.com/watch?v=-G2ygnMe2yI,"2~3세, 4~5세","영어동요, 생활습관",,CoComelon 추정,2026-11-07,확인
+Twinkle Twinkle Little Star,https://www.youtube.com/watch?v=yCjJyiqpAuU,"12~24개월, 2~3세","영어동요, 자장가",,Super Simple Songs 추정,2026-11-07,확인
+Twinkle Twinkle Little Star & More,https://www.youtube.com/watch?v=rO7C0l4pxLE,"12~24개월, 2~3세","영어동요, 자장가",모음,Super Simple Songs 추정,2026-11-07,확인
+Rain Rain Go Away,https://www.youtube.com/watch?v=AEhKa7EaEkg,"2~3세, 4~5세","영어동요, 계절·생일",,Super Simple Songs 추정,2026-11-07,확인
+Rain Rain Go Away + More,https://www.youtube.com/watch?v=tfteCPMkKJE,"2~3세, 4~5세","영어동요, 계절·생일",모음,Super Simple Songs 추정,2026-11-07,확인
+Rain Rain Go Away with Five Little Ducks,https://www.youtube.com/watch?v=XSmCLQV42aE,"2~3세, 4~5세","영어동요, 동물",,Super Simple Songs 추정,2026-11-07,확인
+Five Little Ducks,https://www.youtube.com/watch?v=pZw9veQ76fo,"2~3세, 4~5세","영어동요, 동물",,Super Simple Songs 추정,2026-11-07,확인
+Head Shoulders Knees & Toes (Speeding Up),https://www.youtube.com/watch?v=WX8HmogNyCY,"4~5세, 6~7세","영어동요, 율동, 가족·몸",,Super Simple Songs 추정,2026-11-07,확인
+If You're Happy,https://www.youtube.com/watch?v=l4WNrvVjiTw,"2~3세, 4~5세","영어동요, 율동",,Super Simple Songs 추정,2026-11-07,확인`;
+
+/* =========================================================
+   아이콘
+   ========================================================= */
+const ICON = {
+  back: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>',
+  pause: '<svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>',
+  play: '<svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>',
+  playSm: '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>',
+  playPh: '<svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>',
+  prev: '<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 5h2v14H6zM20 5v14L9 12z"/></svg>',
+  next: '<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 5h2v14h-2zM4 5v14l11-7z"/></svg>',
+  repeat1: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a3 3 0 0 1 3-3h15"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a3 3 0 0 1-3 3H3"/><path d="M11 10h1v5"/></svg>',
+  shuffle: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 3h5v5"/><path d="M4 20L21 3"/><path d="M21 16v5h-5"/><path d="M15 15l6 6"/><path d="M4 4l5 5"/></svg>',
+  heart: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>',
+  heartFill: '<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>',
+  note: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>',
+  list: '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h12M3 12h12M3 18h8"/><path d="M19 13v7"/><circle cx="17" cy="20" r="2"/><path d="M19 13l3-1"/></svg>',
+  plus: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>',
+  check: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>',
+  select: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 12l3 3 5-6"/></svg>',
+  expand: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5"/><path d="M20 9V4h-5"/><path d="M4 15v5h5"/><path d="M20 15v5h-5"/></svg>',
+  close: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>',
+  lock: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>',
+  unlock: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 7.8-1.2"/></svg>',
+  cart: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M3 4h2l2.4 11h11.2l2-8H6.2"/></svg>',
+  erase: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 5H9l-6 7 6 7h12a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1z"/><path d="M17 9l-6 6M11 9l6 6"/></svg>'
+};
+
+/* 크레파스 피아노 그림: 홈 맨 위는 header-art.png, 다른 화면 맨 위는 header-keys.png */
+const KEYS_SVG = '<img class="keys" src="header-keys.png" alt="" aria-hidden="true">';
+
+/* =========================================================
+   도우미
+   ========================================================= */
+function esc(s) {
+  return String(s == null ? '' : s)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+
+function parseCSV(text) {
+  const rows = [];
+  let row = [], field = '', inQuotes = false;
+  text = String(text || '').replace(/^﻿/, '');
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (inQuotes) {
+      if (c === '"') {
+        if (text[i + 1] === '"') { field += '"'; i++; }
+        else inQuotes = false;
+      } else field += c;
+    } else if (c === '"') inQuotes = true;
+    else if (c === ',') { row.push(field); field = ''; }
+    else if (c === '\n' || c === '\r') {
+      if (c === '\r' && text[i + 1] === '\n') i++;
+      row.push(field); rows.push(row); row = []; field = '';
+    } else field += c;
+  }
+  if (field !== '' || row.length) { row.push(field); rows.push(row); }
+  return rows.filter(r => r.some(v => v.trim() !== ''));
+}
+
+function splitList(s) {
+  return String(s || '').split(/[,，、\/]/).map(v => v.trim()).filter(Boolean);
+}
+
+function videoIdOf(url) {
+  const s = String(url || '').trim();
+  const m = s.match(/(?:v=|youtu\.be\/|shorts\/|embed\/|live\/)([A-Za-z0-9_-]{11})/);
+  if (m) return m[1];
+  return /^[A-Za-z0-9_-]{11}$/.test(s) ? s : '';
+}
+
+function safeLink(url) {
+  const s = String(url || '').trim();
+  return /^https:\/\//i.test(s) ? s : '';
+}
+
+function parseDate(s) {
+  const m = String(s || '').match(/(\d{4})\D+(\d{1,2})\D+(\d{1,2})/);
+  if (!m) return '';
+  return m[1] + '-' + m[2].padStart(2, '0') + '-' + m[3].padStart(2, '0');
+}
+
+function todayStr() {
+  const d = new Date();
+  return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+}
+
+function daysBetween(a, b) {
+  return Math.round((new Date(b + 'T00:00:00') - new Date(a + 'T00:00:00')) / 86400000);
+}
+
+function tableOf(rows) {
+  if (!rows.length) return [];
+  const header = rows[0].map(h => h.trim());
+  return rows.slice(1).map(r => {
+    const o = {};
+    header.forEach((h, i) => { o[h] = (r[i] || '').trim(); });
+    return o;
+  });
+}
+
+function toSongs(rows) {
+  const seen = new Set();
+  return tableOf(rows).map(r => ({
+    id: videoIdOf(r['유튜브 주소']),
+    title: r['노래 이름'] || '',
+    ages: splitList(r['나이']).filter(a => AGES.includes(a)),
+    cats: splitList(r['주제']),
+    length: r['길이'] || '',
+    channel: r['채널명'] || '',
+    added: parseDate(r['추가일'])
+  })).filter(p => {
+    if (!p.title || !p.id || seen.has(p.id)) return false;
+    seen.add(p.id);
+    if (!p.ages.length) p.ages = AGES.slice();
+    return true;
+  });
+}
+
+function toItems(rows) {
+  return tableOf(rows).map(r => ({
+    song: r['노래 이름'] || '',
+    name: r['상품명'] || '',
+    desc: r['한 줄 설명'] || '',
+    img: safeLink(r['상품 이미지 주소']),
+    link: safeLink(r['쿠팡 링크'])
+  })).filter(it => it.song && it.name && it.link);
+}
+
+function shuffled(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function charImg(key, cls) {
+  const c = CHARS[key] || CHARS.bear;
+  return `<img class="${cls}" src="${c.src}" alt="${esc(c.name)} 친구">`;
+}
+
+function isStandalone() {
+  try {
+    return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+  } catch (e) { return false; }
+}
+
+function deviceKind() {
+  const ua = navigator.userAgent || '';
+  if (/KAKAOTALK/i.test(ua)) return 'kakao';
+  if (/iPhone|iPad|iPod/i.test(ua)) return 'ios';
+  if (/Android/i.test(ua)) return 'android';
+  return 'other';
+}
+
+function metaText(p) {
+  return [p.cats.join(', '), p.length].filter(Boolean).join(' · ');
+}
+
+/* =========================================================
+   저장 (이 폰의 브라우저에만 저장돼요)
+   ========================================================= */
+function loadSaved() {
+  try {
+    const v = JSON.parse(localStorage.getItem(STORE_KEY) || '{}');
+    return v && typeof v === 'object' ? v : {};
+  } catch (e) { return {}; }
+}
+
+function save() {
+  try {
+    localStorage.setItem(STORE_KEY, JSON.stringify({
+      age: state.age, cat: state.cat, view: state.view,
+      lists: state.lists, seenNew: state.seenNew,
+      kid: state.kid, queue: state.queue, repeatOne: state.repeatOne,
+      homeTipClosed: state.homeTipClosed
+    }));
+  } catch (e) { /* 저장이 막힌 브라우저에서는 그냥 넘어가요 */ }
+}
+
+/* =========================================================
+   상태
+   ========================================================= */
+const saved = loadSaved();
+function cleanLists(v) {
+  if (!Array.isArray(v)) return [];
+  return v.filter(l => l && typeof l.id === 'string' && typeof l.name === 'string' && Array.isArray(l.ids))
+    .slice(0, CONFIG.MAX_LISTS)
+    .map(l => ({ id: l.id, name: l.name.slice(0, CONFIG.LIST_NAME_MAX), ids: l.ids.filter(x => typeof x === 'string') }));
+}
+function cleanQueue(q) {
+  if (!q || !Array.isArray(q.ids) || !Array.isArray(q.base) || !q.ids.length) return null;
+  const idx = Number.isInteger(q.idx) && q.idx >= 0 && q.idx < q.ids.length ? q.idx : 0;
+  return { ids: q.ids.filter(x => typeof x === 'string'), base: q.base.filter(x => typeof x === 'string'), idx, label: String(q.label || ''), shuffle: q.shuffle === true };
+}
+
+const state = {
+  songs: [],
+  items: [],
+  loadError: false,
+  age: AGES.includes(saved.age) ? saved.age : CONFIG.DEFAULT_AGE,
+  cat: typeof saved.cat === 'string' ? saved.cat : '',
+  view: saved.view === 'lists' ? 'lists' : 'all',
+  lists: cleanLists(saved.lists),
+  seenNew: typeof saved.seenNew === 'string' ? saved.seenNew : '',
+  kid: saved.kid === true,
+  queue: cleanQueue(saved.queue),
+  repeatOne: saved.repeatOne === true,
+  homeTipClosed: saved.homeTipClosed === true,
+  selecting: false,
+  picks: [],
+  picked: null,
+  quiz: null,
+  pending: null
+};
+
+const appEl = document.getElementById('app');
+const layerEl = document.getElementById('layer');
+const selbarEl = document.getElementById('selbar');
+let cameFromHome = false;
+let returnHash = '';
+let installPrompt = null;
+
+window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); installPrompt = e; });
+
+function songOf(id) { return state.songs.find(s => s.id === id) || null; }
+function listOf(id) { return state.lists.find(l => l.id === id) || null; }
+
+/* =========================================================
+   목록 거르기
+   ========================================================= */
+function isNew(p) {
+  if (!p.added) return false;
+  const d = daysBetween(p.added, todayStr());
+  return d >= 0 && d < CONFIG.NEW_DAYS;
+}
+
+function filterBy(age) {
+  return state.songs.filter(p => p.ages.includes(age) && (!state.cat || p.cats.includes(state.cat)));
+}
+
+function allCats() {
+  const set = new Set();
+  state.songs.forEach(p => p.cats.forEach(c => set.add(c)));
+  return CAT_ORDER.filter(c => set.has(c)).concat([...set].filter(c => !CAT_ORDER.includes(c)));
+}
+
+function newInfo() {
+  const news = state.songs.filter(isNew);
+  const latest = news.reduce((m, p) => (p.added > m ? p.added : m), '');
+  return { count: news.length, latest, show: news.length > 0 && latest > state.seenNew };
+}
+
+function filterLabel() {
+  return state.age + (state.cat ? ' ' + state.cat : '') + ' 동요';
+}
+
+/* =========================================================
+   공통 조각
+   ========================================================= */
+function songRowHTML(p, i, opts) {
+  opts = opts || {};
+  const n = (i || 0) % 4;
+  const pickIdx = state.selecting && opts.selectable ? state.picks.indexOf(p.id) : -1;
+  const attr = opts.selectable && state.selecting ? `data-pickid="${esc(p.id)}" aria-pressed="${pickIdx >= 0}"`
+    : opts.playAttr || `data-play="${esc(p.id)}"`;
+  const right = opts.selectable && state.selecting
+    ? `<span class="check" aria-hidden="true">${pickIdx >= 0 ? ICON.check : ''}</span>`
+    : opts.right != null ? opts.right : `<span class="sicon" aria-hidden="true">${ICON.playSm}</span>`;
+  return `
+    <button type="button" class="song${pickIdx >= 0 ? ' picked' : ''}${opts.now ? ' now' : ''}" ${attr}>
+      ${pickIdx >= 0 ? `<span class="order" aria-hidden="true">${pickIdx + 1}</span>` : ''}
+      <span class="thumbwrap c${n}">
+        <span class="thumbph">${ICON.playPh}</span>
+        <img class="thumb" src="https://img.youtube.com/vi/${esc(p.id)}/mqdefault.jpg" alt="" loading="lazy" data-thumb>
+        ${isNew(p) ? '<span class="badge">NEW</span>' : ''}
+        <span class="ytmark">YouTube</span>
+      </span>
+      <span class="sbody">
+        <span class="stitle">${esc(p.title)}</span>
+        <span class="smeta">${esc(metaText(p))}</span>
+      </span>
+      ${right}
+    </button>`;
+}
+
+function emptyHTML(text, who) {
+  return `<div class="empty">${charImg(who || 'bunny', '')}<span>${text}</span></div>`;
+}
+
+function shopHTML() {
+  if (!safeLink(CONFIG.COUPANG_URL)) return '';
+  return `
+    <p class="disc">${DISCLOSURE}</p>
+    <a class="shopbtn" href="${esc(CONFIG.COUPANG_URL)}" target="_blank" rel="noopener sponsored">${ICON.cart}${esc(CONFIG.SHOP_LABEL)}</a>`;
+}
+
+function footerHTML() {
+  return `
+    <footer class="ft nk">
+      <p>이 서비스의 일부 링크는 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</p>
+      <p>영상은 YouTube에서 재생돼요. 각 채널의 공식 서비스가 아닌, 개인이 만든 무료 도구예요.</p>
+      <p class="links">
+        <a href="#info" data-sub>이용 안내</a>
+        <a href="#guide-home" data-sub>홈 화면에 추가하는 법</a>
+        <a href="#guide-lock" data-sub>휴대폰 잠금 방법</a>
+      </p>
+    </footer>`;
+}
+
+/* =========================================================
+   홈 화면
+   ========================================================= */
+function renderHome() {
+  const cats = allCats();
+  if (state.songs.length && state.cat && !cats.includes(state.cat)) state.cat = '';
+  const ni = newInfo();
+  const showHomeTip = !state.homeTipClosed && !isStandalone();
+
+  let body = '';
+  if (!state.songs.length) {
+    body = `<section class="sec">${emptyHTML(state.loadError
+      ? '노래 목록을 불러오지 못했어요.<br>잠시 뒤에 다시 열어주세요.'
+      : '노래 목록을 불러오는 중이에요.')}</section>`;
+  } else if (state.view === 'lists') {
+    body = listsHTML();
+  } else {
+    const list = filterBy(state.age);
+    let rows = list.length
+      ? `<div class="songs">${list.map((p, i) => songRowHTML(p, i, { selectable: true })).join('')}</div>`
+      : emptyHTML('이 조건에 맞는 노래가 아직 없어요.' + (state.cat ? '<br><button type="button" class="minibtn" data-cat="">주제 풀기</button>' : ''));
+
+    // 이 나이에 노래가 적으면 옆 나이도 보여줘요
+    if (list.length < 3) {
+      const idx = AGES.indexOf(state.age);
+      const others = [AGES[idx - 1], AGES[idx + 1]].filter(Boolean);
+      const seen = new Set(list.map(p => p.id));
+      const extra = [];
+      others.forEach(a => filterBy(a).forEach(p => { if (!seen.has(p.id)) { seen.add(p.id); extra.push(p); } }));
+      if (extra.length) {
+        rows += `
+          <div class="notice" style="margin:18px 0 0">${esc(state.age)}에는 이 주제 노래가 ${list.length}곡뿐이에요. 옆 나이 노래도 함께 보세요.</div>
+          <div class="row" style="margin-top:16px"><h2>옆 나이 노래 <span class="count">${extra.slice(0, 8).length}곡</span></h2></div>
+          <div class="songs">${extra.slice(0, 8).map((p, i) => songRowHTML(p, i + 1, { selectable: true })).join('')}</div>`;
+      }
+    }
+
+    body = `
+      <section class="sec">
+        <div class="row"><h2>어떤 노래 부를까요?</h2></div>
+        <div class="chips" role="group" aria-label="주제">
+          <button type="button" class="chip${state.cat ? '' : ' on'}" aria-pressed="${!state.cat}" data-cat="">전체</button>
+          ${cats.map(c => `<button type="button" class="chip${state.cat === c ? ' on' : ''}" aria-pressed="${state.cat === c}" data-cat="${esc(c)}">${esc(c)}</button>`).join('')}
+        </div>
+      </section>
+      <section class="sec">
+        <div class="row"><h2>${esc(filterLabel())} <span class="count">${list.length}곡</span></h2></div>
+        ${list.length ? `
+        <div class="actions">
+          <button type="button" class="abtn main" data-playall>${ICON.playSm}이어서 듣기</button>
+          <button type="button" class="abtn" data-shuffleall>${ICON.shuffle}섞어 듣기</button>
+          <button type="button" class="abtn${state.selecting ? ' on' : ''}" aria-pressed="${state.selecting}" data-selmode>${ICON.select}${state.selecting ? '고르는 중' : '골라 듣기'}</button>
+        </div>` : ''}
+        ${state.selecting ? '<p class="tip" style="margin:0 0 10px">듣고 싶은 노래를 누르면 순서대로 골라져요.</p>' : ''}
+        ${rows}
+      </section>`;
+  }
+
+  const shop = shopHTML();
+
+  appEl.classList.toggle('selecting', state.selecting);
+  appEl.innerHTML = `
+    <div class="hero">
+      <header class="hd">
+        ${charImg('bear', 'char')}
+        <div class="txt">
+          <span class="sub">오늘의 동요 스케치북</span>
+          <h1 class="jua"><span style="color:#D9483A">뭐</span> <span style="color:#2F72C4">부</span><span style="color:#3E9C7D">를</span><span style="color:#8B5CC9">까</span>?</h1>
+        </div>
+      </header>
+    </div>
+
+    <button type="button" class="pickbtn jua" data-pick>${ICON.note}오늘 부를 노래 골라줘</button>
+
+    <div class="ages" role="tablist" aria-label="나이">
+      ${AGES.map((a, i) => `<button type="button" role="tab" class="age a${i}${a === state.age ? ' on' : ''}" aria-selected="${a === state.age}" data-age="${esc(a)}"><span class="pegs" aria-hidden="true"><i></i><i></i></span>${esc(a)}</button>`).join('')}
+    </div>
+
+    ${showHomeTip ? `
+      <div class="homebar">
+        <span class="txt">홈 화면에 앱처럼 추가해요</span>
+        <a class="minibtn" href="#guide-home" data-sub>방법 보기</a>
+        <button type="button" class="minibtn" data-close-hometip>닫기</button>
+      </div>` : ''}
+
+    ${state.loadError && state.songs.length ? '<div class="notice">최신 목록을 불러오지 못해 예시 목록을 보여드리고 있어요.</div>' : ''}
+
+    ${ni.show ? `
+      <div class="newbar">
+        <span class="pill">NEW</span>
+        <span class="txt">새 노래 ${ni.count}곡이 들어왔어요</span>
+        <button type="button" class="minibtn" data-seen-new>확인했어요</button>
+      </div>` : ''}
+
+    <div class="views" role="group" aria-label="보기">
+      <button type="button" class="view${state.view === 'all' ? ' on' : ''}" aria-pressed="${state.view === 'all'}" data-view="all">전체 노래</button>
+      <button type="button" class="view${state.view === 'lists' ? ' on' : ''}" aria-pressed="${state.view === 'lists'}" data-view="lists">내 목록 ${state.lists.length}</button>
+    </div>
+
+    ${body}
+
+    ${shop && !state.selecting ? `<div class="shopcard">${shop}</div>` : ''}
+
+    ${footerHTML()}`;
+  renderSelbar();
+}
+
+function listsHTML() {
+  const cards = state.lists.map((l, i) => {
+    const n = l.ids.filter(id => songOf(id)).length;
+    return `
+      <div class="lcard">
+        <div class="top">
+          <span class="ic c${i % 5}" aria-hidden="true">${ICON.list}</span>
+          <span class="name">${esc(l.name)} <span class="n">${n}곡</span></span>
+        </div>
+        <div class="btns">
+          <button type="button" class="abtn main" data-listplay="${esc(l.id)}" ${n ? '' : 'disabled'}>${ICON.playSm}듣기</button>
+          <button type="button" class="abtn" data-listshuffle="${esc(l.id)}" ${n ? '' : 'disabled'}>${ICON.shuffle}섞어</button>
+          <a class="abtn" href="#list/${esc(l.id)}" style="text-decoration:none;justify-content:center">열어보기</a>
+        </div>
+      </div>`;
+  }).join('');
+  return `
+    <section class="sec">
+      <div class="row"><h2>내 목록 <span class="count">${state.lists.length}/${CONFIG.MAX_LISTS}</span></h2></div>
+      ${state.lists.length ? `<div class="lists">${cards}</div>` : emptyHTML('아직 만든 목록이 없어요.<br>"차에서 듣기", "잘 때"처럼<br>상황별로 목록을 만들어 보세요.', 'chick')}
+      ${state.lists.length < CONFIG.MAX_LISTS ? `<div style="margin-top:10px"><button type="button" class="newlist" data-newlist>${ICON.plus}새 목록 만들기</button></div>` : ''}
+      <p class="tip" style="margin:12px 0 0">전체 노래에서 "골라 듣기"로 여러 곡을 고르거나, 노래 화면의 하트를 눌러 목록에 담을 수 있어요.</p>
+    </section>`;
+}
+
+function renderSelbar() {
+  if (!state.selecting || location.hash.replace(/^#/, '') !== '' || state.view !== 'all') { selbarEl.innerHTML = ''; return; }
+  const n = state.picks.length;
+  selbarEl.innerHTML = `
+    <div class="selbar"><div class="in">
+      <div class="info"><span><b>${n}곡</b> 골랐어요</span>
+        <span>${n ? '<button type="button" data-picksclear>모두 빼기</button>' : ''}<button type="button" data-selmode>그만 고르기</button></span></div>
+      <div class="btns">
+        <button type="button" class="sb go" data-pickplay ${n ? '' : 'disabled'}>${ICON.playSm}듣기</button>
+        <button type="button" class="sb" data-pickshuffle ${n ? '' : 'disabled'}>${ICON.shuffle}섞어</button>
+        <button type="button" class="sb" data-picksave ${n ? '' : 'disabled'}>${ICON.plus}목록에 저장</button>
+      </div>
+    </div></div>`;
+}
+
+/* =========================================================
+   목록 열어보기
+   ========================================================= */
+function renderListPage(l) {
+  const songs = l.ids.map(songOf).filter(Boolean);
+  appEl.classList.remove('selecting');
+  selbarEl.innerHTML = '';
+  appEl.innerHTML = `
+    ${KEYS_SVG}
+    <div class="ptop">
+      <button type="button" class="iconbtn" aria-label="뒤로" data-listback>${ICON.back}</button>
+      <h1 class="ptitle">${esc(l.name)} <span class="count">${songs.length}곡</span></h1>
+    </div>
+    <section class="sec">
+      <div class="actions">
+        <button type="button" class="abtn main" data-listplay="${esc(l.id)}" ${songs.length ? '' : 'disabled'}>${ICON.playSm}처음부터 듣기</button>
+        <button type="button" class="abtn" data-listshuffle="${esc(l.id)}" ${songs.length ? '' : 'disabled'}>${ICON.shuffle}섞어 듣기</button>
+      </div>
+      ${songs.length ? `<div class="songs">${songs.map((p, i) => songRowHTML(p, i, {
+        playAttr: `data-listsong="${esc(p.id)}" data-list="${esc(l.id)}"`,
+        right: `<span class="rmbtn" role="presentation" data-rm="${esc(p.id)}" data-list="${esc(l.id)}">빼기</span>`
+      })).join('')}</div>` : emptyHTML('아직 담긴 노래가 없어요.<br>전체 노래에서 "골라 듣기"로 담아보세요.', 'chick')}
+    </section>
+    <section class="sec">
+      <div class="sheetbtns">
+        <button type="button" class="sbtn" data-rename="${esc(l.id)}">이름 바꾸기</button>
+        <button type="button" class="sbtn danger" data-dellist="${esc(l.id)}">목록 지우기</button>
+      </div>
+    </section>
+    ${footerHTML()}`;
+  window.scrollTo(0, 0);
+}
+
+/* =========================================================
+   목록 만들기·담기 창
+   ========================================================= */
+function newListId() { return 'l' + Date.now().toString(36) + Math.floor(Math.random() * 1000).toString(36); }
+
+function createList(name, ids) {
+  if (state.lists.length >= CONFIG.MAX_LISTS) return null;
+  const l = { id: newListId(), name: name.slice(0, CONFIG.LIST_NAME_MAX), ids: [...new Set(ids || [])] };
+  state.lists.push(l);
+  save();
+  return l;
+}
+
+// ids: 담을 노래들. 한 곡이면 담기/빼기 토글, 여러 곡이면 추가만.
+function openAddSheet(ids, message) {
+  state.pending = { ids: ids.slice() };
+  const single = ids.length === 1;
+  const opts = state.lists.map(l => {
+    const has = single && l.ids.includes(ids[0]);
+    return `<button type="button" class="pickopt${has ? ' in' : ''}" data-addto="${esc(l.id)}">
+      <span class="nm">${esc(l.name)}</span>
+      <span class="st">${has ? '담겨 있어요 · 누르면 빼요' : l.ids.length + '곡'}</span>
+    </button>`;
+  }).join('');
+  layerEl.innerHTML = `
+    <div class="layer" data-layer>
+      <div class="sheet" role="dialog" aria-modal="true" aria-label="목록에 담기">
+        <h2>${single ? '어느 목록에 담을까요?' : ids.length + '곡을 어느 목록에 담을까요?'}</h2>
+        ${state.lists.length ? `<div class="pickrow">${opts}</div>` : '<p>아직 목록이 없어요. 아래에서 새로 만들어 주세요.</p>'}
+        ${state.lists.length < CONFIG.MAX_LISTS ? `
+          <form class="namebox" data-newform>
+            <label for="newname">새 목록 이름</label>
+            <input id="newname" name="newname" maxlength="${CONFIG.LIST_NAME_MAX}" placeholder="새 목록 이름 (예: 차에서 듣기)" autocomplete="off">
+            <button type="submit">만들기</button>
+          </form>` : `<p>목록은 ${CONFIG.MAX_LISTS}개까지 만들 수 있어요.</p>`}
+        <div class="msg" role="status">${message ? esc(message) : ''}</div>
+        <button type="button" class="sclose" data-close-layer>닫기</button>
+      </div>
+    </div>`;
+}
+
+function openNameSheet(listId) {
+  const l = listId ? listOf(listId) : null;
+  state.pending = { rename: listId || null };
+  layerEl.innerHTML = `
+    <div class="layer" data-layer>
+      <div class="sheet" role="dialog" aria-modal="true" aria-label="${l ? '이름 바꾸기' : '새 목록'}">
+        ${charImg('chick', 'sheetchar')}
+        <h2>${l ? '목록 이름 바꾸기' : '새 목록 만들기'}</h2>
+        <form class="namebox" data-nameform>
+          <label for="listname">목록 이름</label>
+          <input id="listname" name="listname" maxlength="${CONFIG.LIST_NAME_MAX}" value="${l ? esc(l.name) : ''}" placeholder="예: 차에서 듣기, 잘 때" autocomplete="off">
+          <button type="submit">${l ? '바꾸기' : '만들기'}</button>
+        </form>
+        <div class="msg" role="status"></div>
+        <button type="button" class="sclose" data-close-layer>닫기</button>
+      </div>
+    </div>`;
+}
+
+function openDeleteSheet(listId) {
+  const l = listOf(listId);
+  if (!l) return;
+  layerEl.innerHTML = `
+    <div class="layer" data-layer>
+      <div class="sheet" role="dialog" aria-modal="true" aria-label="목록 지우기">
+        <h2>"${esc(l.name)}" 목록을 지울까요?</h2>
+        <p>목록만 지워지고, 노래는 전체 노래에 그대로 있어요.</p>
+        <div class="sheetbtns">
+          <button type="button" class="sbtn" data-close-layer>그대로 두기</button>
+          <button type="button" class="sbtn danger" data-dellistok="${esc(l.id)}">지우기</button>
+        </div>
+      </div>
+    </div>`;
+}
+
+/* =========================================================
+   골라줘
+   ========================================================= */
+function openPick() {
+  let pool = filterBy(state.age);
+  if (!pool.length) pool = state.songs;
+  if (!pool.length) return;
+  let next = pool[Math.floor(Math.random() * pool.length)];
+  if (pool.length > 1 && state.picked && next.id === state.picked) {
+    const rest = pool.filter(p => p.id !== state.picked);
+    next = rest[Math.floor(Math.random() * rest.length)];
+  }
+  state.picked = next.id;
+  const keys = Object.keys(CHARS);
+  const who = keys[Math.floor(Math.random() * keys.length)];
+  layerEl.innerHTML = `
+    <div class="layer" data-layer>
+      <div class="sheet" role="dialog" aria-modal="true" aria-label="오늘의 노래">
+        ${charImg(who, 'sheetchar')}
+        <h2>오늘은 이 노래 불러볼까?</h2>
+        <div class="songs">${songRowHTML(next, 0, { playAttr: `data-go="${esc(next.id)}"` })}</div>
+        <div class="sheetbtns">
+          <button type="button" class="sbtn" data-repick>다른 노래</button>
+          <button type="button" class="sbtn go" data-go="${esc(next.id)}">이걸로 할래요</button>
+        </div>
+        <button type="button" class="sclose" data-close-layer>닫기</button>
+      </div>
+    </div>`;
+}
+
+function closeLayer() { layerEl.innerHTML = ''; state.quiz = null; state.pending = null; }
+
+/* =========================================================
+   듣는 순서 (재생 목록)
+   ========================================================= */
+function startQueue(ids, startId, label, shuffle) {
+  ids = ids.filter(id => songOf(id));
+  if (!ids.length) return;
+  const base = ids.slice();
+  let order = base.slice();
+  let start = startId && base.includes(startId) ? startId : base[0];
+  if (shuffle) {
+    if (startId) order = [start].concat(shuffled(base.filter(x => x !== start)));
+    else { order = shuffled(base); start = order[0]; }
+  }
+  state.queue = { ids: order, base, idx: order.indexOf(start), label: label || '', shuffle: !!shuffle };
+  save();
+  closeLayer();
+  cameFromHome = true;
+  if (location.hash === '#play/' + start) route();
+  else location.hash = 'play/' + start;
+}
+
+function currentId() {
+  const q = state.queue;
+  return q && q.ids[q.idx] ? q.ids[q.idx] : null;
+}
+
+function setShuffle(on) {
+  const q = state.queue;
+  if (!q) return;
+  const cur = currentId();
+  if (on) q.ids = [cur].concat(shuffled(q.base.filter(x => x !== cur)));
+  else q.ids = q.base.slice();
+  q.idx = Math.max(0, q.ids.indexOf(cur));
+  q.shuffle = on;
+  save();
+  updateNowPlaying();
+}
+
+/* =========================================================
+   아이 모드
+   ========================================================= */
+function openLockSheet() {
+  layerEl.innerHTML = `
+    <div class="layer" data-layer>
+      <div class="sheet" role="dialog" aria-modal="true" aria-label="아이 모드">
+        ${charImg('bear', 'sheetchar')}
+        <h2>아이 모드를 켤까요?</h2>
+        <p>영상과 일시정지 버튼만 남고 나머지는 숨겨져요.<br>듣던 목록은 끝까지 이어서 나오고, 한 곡 반복도 그대로예요.</p>
+        <p>전화나 홈 버튼까지 막으려면<br>휴대폰 자체 잠금 기능을 같이 써주세요.</p>
+        <div class="sheetbtns">
+          <a class="sbtn" href="#guide-lock" data-sub>휴대폰 잠금 방법</a>
+          <button type="button" class="sbtn go" data-lock-on>아이 모드 켜기</button>
+        </div>
+        <button type="button" class="sclose" data-close-layer>닫기</button>
+      </div>
+    </div>`;
+}
+
+function newQuiz() {
+  const a = 2 + Math.floor(Math.random() * 8);
+  const b = 2 + Math.floor(Math.random() * 8);
+  state.quiz = { a, b, input: '' };
+}
+
+function openUnlock(message) {
+  if (!state.quiz) newQuiz();
+  const q = state.quiz;
+  const ans = String(q.a * q.b);
+  const boxes = [];
+  for (let i = 0; i < ans.length; i++) boxes.push(`<span>${esc(q.input[i] || '')}</span>`);
+  layerEl.innerHTML = `
+    <div class="layer" data-layer data-kidlayer>
+      <div class="sheet" role="dialog" aria-modal="true" aria-label="아이 모드 풀기">
+        <h2>엄마 아빠만 풀 수 있어요</h2>
+        <p>아래 곱셈의 답을 눌러주세요</p>
+        <div class="quiz">${q.a} × ${q.b} = ?</div>
+        <div class="answer${message ? ' bad' : ''}">${boxes.join('')}</div>
+        <div class="msg" role="status">${message ? esc(message) : ''}</div>
+        <div class="pad">
+          ${[1, 2, 3, 4, 5, 6, 7, 8, 9].map(n => `<button type="button" class="key" data-key="${n}">${n}</button>`).join('')}
+          <span class="key blank"></span>
+          <button type="button" class="key" data-key="0">0</button>
+          <button type="button" class="key" data-key="del" aria-label="지우기">${ICON.erase}</button>
+        </div>
+        <button type="button" class="sclose" data-close-layer>닫기</button>
+      </div>
+    </div>`;
+}
+
+function pressKey(k) {
+  const q = state.quiz;
+  if (!q) return;
+  const ans = String(q.a * q.b);
+  if (k === 'del') { q.input = q.input.slice(0, -1); openUnlock(); return; }
+  if (q.input.length >= ans.length) return;
+  q.input += k;
+  if (q.input.length < ans.length) { openUnlock(); return; }
+  if (q.input === ans) {
+    kidOff();
+    closeLayer();
+  } else {
+    newQuiz();
+    openUnlock('다시 해볼까요? 문제가 바뀌었어요.');
+  }
+}
+
+function kidOn() { state.kid = true; save(); document.body.classList.add('kid'); }
+function kidOff() { state.kid = false; save(); document.body.classList.remove('kid'); }
+
+/* =========================================================
+   노래 듣기 화면
+   ========================================================= */
+let ytApiPromise = null;
+function loadYouTubeAPI() {
+  if (window.YT && window.YT.Player) return Promise.resolve();
+  if (ytApiPromise) return ytApiPromise;
+  ytApiPromise = new Promise(resolve => {
+    const prev = window.onYouTubeIframeAPIReady;
+    window.onYouTubeIframeAPIReady = () => { if (prev) prev(); resolve(); };
+    const s = document.createElement('script');
+    s.src = 'https://www.youtube.com/iframe_api';
+    document.head.appendChild(s);
+  });
+  return ytApiPromise;
+}
+
+const player = {
+  yt: null, ready: false, playing: false, skipTimer: null,
+  reset() {
+    if (this.skipTimer) clearTimeout(this.skipTimer);
+    this.skipTimer = null;
+    if (this.yt && this.yt.destroy) { try { this.yt.destroy(); } catch (e) {} }
+    this.yt = null; this.ready = false; this.playing = false;
+    exitBig();
+  }
+};
+
+function itemsFor(p) {
+  return state.items.filter(it => it.song === p.title);
+}
+
+function inAnyList(id) { return state.lists.some(l => l.ids.includes(id)); }
+
+function renderPlayer() {
+  const p = songOf(currentId());
+  if (!p) { location.hash = ''; return; }
+  const items = itemsFor(p);
+  const shop = shopHTML();
+  appEl.classList.remove('selecting');
+  selbarEl.innerHTML = '';
+
+  appEl.innerHTML = `
+    <div class="ptop">
+      <button type="button" class="iconbtn nk" aria-label="뒤로" data-back>${ICON.back}</button>
+      <h1 class="ptitle" data-now-title>${esc(p.title)}</h1>
+      <button type="button" class="iconbtn favbtn nk" aria-label="목록에 담기" data-fav>${ICON.heart}</button>
+      <button type="button" class="iconbtn lockbtn nk" data-lock>${ICON.lock}아이 모드</button>
+    </div>
+    <div class="pinfo nk" data-now-meta></div>
+
+    <div class="kidbar">
+      ${charImg('bear', '')}
+      <span class="txt">아이 모드예요<br><span style="font-weight:400">다른 버튼은 잠겨 있어요</span></span>
+      <button type="button" data-unlock>${ICON.unlock} 풀기</button>
+    </div>
+
+    <div class="playwrap" id="playwrap">
+      <div class="video"><div id="yt"></div></div>
+      <div class="vsub nk">
+        <span class="src" data-now-src></span>
+        <button type="button" class="bigbtn" data-big>${ICON.expand}크게 보기</button>
+      </div>
+      <div class="bigctrls">
+        <button type="button" class="bc nk" aria-label="이전 곡" data-prev>${ICON.prev}</button>
+        <button type="button" class="bc main" aria-label="재생/일시정지" data-toggle><span data-toggle-ic>${ICON.play}</span></button>
+        <button type="button" class="bc nk" aria-label="다음 곡" data-next>${ICON.next}</button>
+        <button type="button" class="bc nk" aria-pressed="${state.repeatOne}" data-repeat>${ICON.repeat1}한 곡 반복</button>
+        <span class="bcnow nk" data-now-q></span>
+        <button type="button" class="bc kidonly" data-unlock>${ICON.unlock}풀기</button>
+        <button type="button" class="bc nk" aria-label="크게 보기 닫기" data-unbig>${ICON.close}</button>
+      </div>
+    </div>
+
+    <section class="sec">
+      <div class="qinfo nk" data-now-q></div>
+      <div class="ctrls">
+        <button type="button" class="cbtn nk" data-prev><span class="ic">${ICON.prev}</span>이전 곡</button>
+        <button type="button" class="cbtn main" data-toggle><span class="ic" data-toggle-ic>${ICON.play}</span><span data-toggle-label>재생</span></button>
+        <button type="button" class="cbtn nk" data-next><span class="ic">${ICON.next}</span>다음 곡</button>
+      </div>
+      <div class="toggles nk">
+        <button type="button" class="tg" aria-pressed="${state.repeatOne}" data-repeat>${ICON.repeat1}한 곡 반복</button>
+        <button type="button" class="tg" aria-pressed="${!!(state.queue && state.queue.shuffle)}" data-shuffle>${ICON.shuffle}섞어 듣기</button>
+        <button type="button" class="tg" data-fav>${ICON.plus}목록에 담기</button>
+      </div>
+    </section>
+
+    <section class="sec nk">
+      <div class="row"><h2>다음 노래</h2></div>
+      <div class="songs" data-upnext></div>
+    </section>
+
+    ${items.length ? `
+    <section class="sec nk">
+      <div class="row"><h2>이 노래와 함께 놀기 좋은 것</h2></div>
+      <div class="items">
+        <p class="disc">${DISCLOSURE}</p>
+        <div class="ilist">
+          ${items.map(it => `
+            <a class="item" href="${esc(it.link)}" target="_blank" rel="noopener sponsored">
+              ${it.img ? `<img class="iimg" src="${esc(it.img)}" alt="" loading="lazy" data-itemimg>` : '<span class="iimg"></span>'}
+              <span class="ibody">
+                <span class="iname">${esc(it.name)}</span>
+                ${it.desc ? `<span class="idesc">${esc(it.desc)}</span>` : ''}
+              </span>
+            </a>`).join('')}
+        </div>
+      </div>
+    </section>` : (shop ? `
+    <section class="sec nk">
+      <div style="display:flex;flex-direction:column;gap:10px;margin-top:4px">${shop}</div>
+    </section>` : '')}
+
+    ${footerHTML()}`;
+
+  document.body.classList.toggle('kid', state.kid);
+  window.scrollTo(0, 0);
+  updateNowPlaying();
+  startPlayer(p.id);
+}
+
+function updateNowPlaying() {
+  const q = state.queue;
+  const p = songOf(currentId());
+  if (!q || !p) return;
+  document.querySelectorAll('[data-now-title]').forEach(el => { el.textContent = p.title; });
+  document.querySelectorAll('[data-now-meta]').forEach(el => { el.textContent = metaText(p); });
+  document.querySelectorAll('[data-now-src]').forEach(el => { el.textContent = '영상 출처: ' + (p.channel || 'YouTube') + ' · YouTube'; });
+  const qtext = (q.label ? q.label + ' · ' : '') + (q.idx + 1) + ' / ' + q.ids.length + '곡' + (q.shuffle ? ' · 섞어 듣기' : '');
+  document.querySelectorAll('[data-now-q]').forEach(el => { el.textContent = qtext; });
+  document.querySelectorAll('[data-fav]').forEach(b => {
+    if (b.classList.contains('favbtn')) {
+      const on = inAnyList(p.id);
+      b.innerHTML = on ? ICON.heartFill : ICON.heart;
+      b.setAttribute('aria-pressed', on);
+    }
+  });
+  document.querySelectorAll('[data-prev]').forEach(b => { b.disabled = q.idx <= 0; });
+  document.querySelectorAll('[data-next]').forEach(b => { b.disabled = q.idx >= q.ids.length - 1; });
+  document.querySelectorAll('[data-shuffle]').forEach(b => b.setAttribute('aria-pressed', q.shuffle));
+  document.querySelectorAll('[data-repeat]').forEach(b => b.setAttribute('aria-pressed', state.repeatOne));
+  const up = document.querySelector('[data-upnext]');
+  if (up) {
+    const rest = q.ids.slice(q.idx + 1).map(songOf).filter(Boolean);
+    up.innerHTML = rest.length
+      ? rest.slice(0, 30).map((s, i) => songRowHTML(s, i, { playAttr: `data-jump="${q.idx + 1 + i}"` })).join('')
+      : emptyHTML('이 노래가 목록의 마지막 곡이에요.', 'chick');
+  }
+  const want = '#play/' + p.id;
+  if (location.hash !== want) {
+    try { history.replaceState(null, '', want); } catch (e) {}
+  }
+}
+
+function startPlayer(id) {
+  player.reset();
+  loadYouTubeAPI().then(() => {
+    if (!document.getElementById('yt')) return;
+    player.yt = new YT.Player('yt', {
+      videoId: id,
+      playerVars: { playsinline: 1, rel: 0, modestbranding: 1, autoplay: 1 },
+      events: {
+        onReady: () => { player.ready = true; },
+        onStateChange: e => {
+          player.playing = e.data === YT.PlayerState.PLAYING;
+          updateToggle();
+          if (e.data === YT.PlayerState.ENDED) onEnded();
+        },
+        onError: () => onVideoError()
+      }
+    });
+  });
+}
+
+function goTo(idx, autoplay) {
+  const q = state.queue;
+  if (!q || idx < 0 || idx >= q.ids.length) return;
+  if (player.skipTimer) { clearTimeout(player.skipTimer); player.skipTimer = null; }
+  q.idx = idx;
+  save();
+  const id = currentId();
+  const box = document.querySelector('.video');
+  if (box && !document.getElementById('yt') && !player.yt) {
+    box.innerHTML = '<div id="yt"></div>';
+  }
+  updateNowPlaying();
+  if (player.yt && player.ready && player.yt.loadVideoById) {
+    const err = document.querySelector('.video .err');
+    if (err) err.remove();
+    player.yt.loadVideoById(id);
+    if (!autoplay) { try { player.yt.playVideo(); } catch (e) {} }
+  } else {
+    startPlayer(id);
+  }
+}
+
+function onEnded() {
+  const q = state.queue;
+  if (!q) return;
+  if (state.repeatOne) { player.yt.seekTo(0, true); player.yt.playVideo(); return; }
+  if (q.idx < q.ids.length - 1) goTo(q.idx + 1, true);
+}
+
+function onVideoError() {
+  const q = state.queue;
+  const p = songOf(currentId());
+  const box = document.querySelector('.video');
+  if (!box || !p) return;
+  const old = box.querySelector('.err');
+  if (old) old.remove();
+  const hasNext = q && q.idx < q.ids.length - 1;
+  const div = document.createElement('div');
+  div.className = 'err';
+  div.innerHTML = `이 영상은 앱 안에서 재생할 수 없어요.${hasNext ? '<br>잠시 뒤 다음 곡으로 넘어가요.' : ''}
+    <a href="https://www.youtube.com/watch?v=${esc(p.id)}" target="_blank" rel="noopener" class="nk">유튜브에서 보기</a>`;
+  box.appendChild(div);
+  if (hasNext) player.skipTimer = setTimeout(() => goTo(q.idx + 1, true), 2500);
+}
+
+function updateToggle() {
+  document.querySelectorAll('[data-toggle-ic]').forEach(el => { el.innerHTML = player.playing ? ICON.pause : ICON.play; });
+  document.querySelectorAll('[data-toggle-label]').forEach(el => { el.textContent = player.playing ? '일시정지' : '재생'; });
+}
+
+/* ---------- 크게 보기 ---------- */
+function enterBig() {
+  document.body.classList.add('big');
+  const wrap = document.getElementById('playwrap');
+  try {
+    if (wrap && wrap.requestFullscreen) {
+      wrap.requestFullscreen().then(() => {
+        try { screen.orientation.lock('landscape').catch(() => {}); } catch (e) {}
+      }).catch(() => {});
+    }
+  } catch (e) {}
+}
+
+function exitBig() {
+  if (!document.body.classList.contains('big')) return;
+  document.body.classList.remove('big');
+  try { if (document.fullscreenElement) document.exitFullscreen().catch(() => {}); } catch (e) {}
+  try { screen.orientation.unlock(); } catch (e) {}
+}
+
+document.addEventListener('fullscreenchange', () => {
+  if (!document.fullscreenElement && !state.kid) exitBig();
+});
+
+/* =========================================================
+   안내 페이지
+   ========================================================= */
+function subPage(title, body) {
+  appEl.classList.remove('selecting');
+  selbarEl.innerHTML = '';
+  appEl.innerHTML = `
+    ${KEYS_SVG}
+    <div class="ptop">
+      <button type="button" class="iconbtn" aria-label="뒤로" data-subback>${ICON.back}</button>
+      <h1 class="ptitle">${esc(title)}</h1>
+    </div>
+    <div class="page">${body}</div>
+    ${footerHTML()}`;
+  window.scrollTo(0, 0);
+}
+
+function renderInfo() {
+  subPage('이용 안내', `
+    <h2>이 서비스는</h2>
+    <p>${esc(CONFIG.APP_NAME)}는 아이와 함께 듣고 부를 수 있는 동요 영상을 나이와 주제별로 모아 보여주는 무료 도구예요. 개인이 만들어 운영하며, 영상에 나오는 채널이나 브랜드의 공식 서비스가 아니에요.</p>
+
+    <h2>영상에 대해</h2>
+    <ul>
+      <li>영상은 YouTube에서 재생되며, 모든 영상의 권리는 원래 만든 분께 있어요.</li>
+      <li>영상을 따로 저장하거나 고치지 않고, YouTube 플레이어로 그대로 보여드려요.</li>
+      <li>영상을 볼 때는 <a href="https://www.youtube.com/t/terms" target="_blank" rel="noopener">YouTube 이용약관</a>과 <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google 개인정보처리방침</a>이 함께 적용돼요.</li>
+      <li>화면을 끄거나 다른 앱을 쓰는 동안 소리만 듣는 기능은 없어요. YouTube 정책에 따라 영상이 보이는 상태로 재생돼요.</li>
+      <li>영상을 만든 분이 목록에서 빼기를 원하시면 아래 문의처로 알려주세요. 확인하는 대로 바로 빼드려요.</li>
+    </ul>
+
+    <h2>쿠팡 파트너스 안내</h2>
+    <p>${DISCLOSURE} 링크를 통해 구매해도 구매하시는 분이 내는 가격은 같아요.</p>
+
+    <h2>저장되는 정보</h2>
+    <ul>
+      <li>고른 나이·주제, 내가 만든 목록, 듣던 순서, 아이 모드 상태는 지금 쓰는 폰의 브라우저에만 저장돼요.</li>
+      <li>이 정보는 어디로도 보내지 않으며, 이름이나 연락처 같은 개인정보는 받지 않아요.</li>
+      <li>서비스 개선을 위해 방문 수, 기기 종류 같은 방문 통계만 모아요. 쿠키를 쓰지 않고, 누가 방문했는지 알아볼 수 없는 형태예요.</li>
+      <li>브라우저의 사이트 데이터를 지우면 목록도 함께 지워져요.</li>
+    </ul>
+
+    <h2>문의</h2>
+    <p>${esc(CONFIG.CONTACT)}</p>`);
+}
+
+function renderGuideHome() {
+  const kind = deviceKind();
+  const ios = `
+    <div class="box${kind === 'ios' ? ' hi' : ''}">
+      <h2 style="margin-top:0">아이폰</h2>
+      <ol>
+        <li><b>사파리</b>로 이 페이지를 열어요.</li>
+        <li>아래쪽 <b>공유 버튼</b>(네모에 위쪽 화살표)을 눌러요.</li>
+        <li>목록을 내려서 <b>홈 화면에 추가</b>를 눌러요.</li>
+        <li>오른쪽 위 <b>추가</b>를 누르면 아이콘이 생겨요.</li>
+      </ol>
+    </div>`;
+  const android = `
+    <div class="box${kind === 'android' ? ' hi' : ''}">
+      <h2 style="margin-top:0">갤럭시 · 안드로이드</h2>
+      <ol>
+        <li><b>크롬</b>이나 <b>삼성 인터넷</b>으로 이 페이지를 열어요.</li>
+        <li>오른쪽 위(또는 아래) <b>점 3개</b>나 <b>메뉴</b>를 눌러요.</li>
+        <li><b>홈 화면에 추가</b> 또는 <b>앱 설치</b>를 눌러요.</li>
+      </ol>
+    </div>`;
+  subPage('홈 화면에 추가하는 법', `
+    <p>홈 화면에 추가하면 바탕화면에 아이콘이 생기고, 주소창 없이 앱처럼 열려요.</p>
+    ${installPrompt ? '<button type="button" class="installbtn" data-install>바로 설치하기</button>' : ''}
+    ${kind === 'kakao' ? `<div class="box hi"><b>카카오톡 안에서 열었다면</b><br>카톡 화면 오른쪽 아래(또는 위) 메뉴에서 <b>다른 브라우저로 열기</b>를 눌러 사파리나 크롬으로 연 다음 아래 방법을 따라 해주세요.</div>` : ''}
+    ${kind === 'android' ? android + ios : ios + android}
+    <p class="tip">기종과 버전에 따라 메뉴 이름이 조금 다를 수 있어요.</p>`);
+}
+
+function renderGuideLock() {
+  const kind = deviceKind();
+  const ios = `
+    <div class="box${kind === 'ios' ? ' hi' : ''}">
+      <h2 style="margin-top:0">아이폰 · 사용법 유도 접근</h2>
+      <p>켜두면 이 앱 하나에서 못 나가고, 홈 화면이나 전화로 넘어갈 수 없어요.</p>
+      <ol>
+        <li><b>설정 › 손쉬운 사용 › 사용법 유도 접근</b>을 켜요.</li>
+        <li><b>암호 설정</b>에서 엄마 아빠만 아는 암호를 정해요.</li>
+        <li>이 앱에서 노래를 틀고, <b>측면 버튼</b>(홈 버튼이 있는 폰은 홈 버튼)을 <b>빠르게 세 번</b> 눌러요.</li>
+        <li>누르면 안 되는 곳이 있으면 화면에 손가락으로 동그라미를 그려 막고, <b>시작</b>을 눌러요.</li>
+        <li>끝낼 때는 다시 <b>세 번</b> 누르고 암호를 넣은 뒤 <b>종료</b>를 눌러요.</li>
+      </ol>
+    </div>`;
+  const android = `
+    <div class="box${kind === 'android' ? ' hi' : ''}">
+      <h2 style="margin-top:0">갤럭시 · 앱 고정</h2>
+      <p>켜두면 지금 화면에 고정돼서 다른 앱으로 못 넘어가요.</p>
+      <ol>
+        <li><b>설정</b>에서 <b>앱 고정</b>을 검색해서 켜요. (보통 <b>보안 및 개인정보 보호 › 기타 보안 설정</b> 안에 있어요)</li>
+        <li><b>고정 해제 시 잠금 화면 표시</b>도 켜두면, 풀 때 폰 비밀번호를 물어봐요.</li>
+        <li>이 앱을 연 상태에서 <b>최근 앱</b> 화면을 열고, 위쪽 앱 아이콘을 눌러 <b>이 앱 고정</b>을 눌러요.</li>
+        <li>풀 때는 <b>뒤로 버튼과 최근 앱 버튼을 함께 길게</b> 눌러요. (제스처 사용 시 화면 아래에서 위로 밀어 올린 채 잠깐 기다려요)</li>
+      </ol>
+    </div>`;
+  subPage('휴대폰 잠금 방법', `
+    <p>앱 안의 <b>아이 모드</b>는 우리 앱의 버튼만 잠가요. 전화 걸기, 홈 버튼, 다른 앱으로 나가기까지 막으려면 휴대폰에 있는 잠금 기능을 같이 써주세요.</p>
+    ${kind === 'android' ? android + ios : ios + android}
+    <p class="tip">기종과 버전에 따라 메뉴 이름과 위치가 조금 다를 수 있어요. 설정 화면 위쪽 검색창에서 기능 이름으로 찾으면 빨라요.</p>`);
+}
+
+/* =========================================================
+   화면 전환
+   ========================================================= */
+function route() {
+  if (state.kid) {
+    const cur = currentId();
+    if (cur && songOf(cur)) {
+      if (location.hash !== '#play/' + cur) { location.replace('#play/' + cur); return; }
+    } else {
+      kidOff();
+    }
+  }
+  if (!layerEl.querySelector('[data-kidlayer]')) closeLayer();
+
+  const h = location.hash;
+  if (h === '#info') { player.reset(); renderInfo(); return; }
+  if (h === '#guide-home') { player.reset(); renderGuideHome(); return; }
+  if (h === '#guide-lock') { player.reset(); renderGuideLock(); return; }
+  const lm = h.match(/^#list\/([A-Za-z0-9]+)$/);
+  if (lm) {
+    const l = listOf(lm[1]);
+    player.reset();
+    document.body.classList.remove('kid');
+    if (l) { renderListPage(l); return; }
+    location.replace('#'); return;
+  }
+  const m = h.match(/^#play\/([A-Za-z0-9_-]{11})$/);
+  if (m && songOf(m[1])) {
+    // 링크로 바로 들어온 경우: 그 노래만 담긴 목록을 만들어요
+    if (!state.queue || !state.queue.ids.includes(m[1])) {
+      state.queue = { ids: [m[1]], base: [m[1]], idx: 0, label: '', shuffle: false };
+    } else {
+      state.queue.idx = state.queue.ids.indexOf(m[1]);
+    }
+    save();
+    renderPlayer();
+    return;
+  }
+  player.reset();
+  document.body.classList.remove('kid');
+  renderHome();
+}
+
+window.addEventListener('hashchange', route);
+
+/* =========================================================
+   썸네일·상품 이미지가 깨졌을 때
+   ========================================================= */
+document.addEventListener('error', e => {
+  const t = e.target;
+  if (t && t.tagName === 'IMG' && (t.hasAttribute('data-thumb') || t.hasAttribute('data-itemimg'))) t.classList.add('fail');
+}, true);
+document.addEventListener('load', e => {
+  const t = e.target;
+  if (t && t.tagName === 'IMG' && t.hasAttribute('data-thumb') && t.naturalWidth > 0 && t.naturalWidth <= 120) t.classList.add('fail');
+}, true);
+
+/* =========================================================
+   이름 입력 (목록 만들기·바꾸기)
+   ========================================================= */
+document.addEventListener('submit', e => {
+  const f = e.target;
+  if (!f || !f.matches) return;
+  e.preventDefault();
+  if (state.kid) return;
+  if (f.matches('[data-newform]')) {
+    const name = (f.elements.newname.value || '').trim();
+    if (!name) { openAddSheet(state.pending ? state.pending.ids : [], '목록 이름을 적어주세요.'); return; }
+    const ids = state.pending ? state.pending.ids : [];
+    const l = createList(name, ids);
+    if (!l) return;
+    afterAdded(l, ids.length);
+    return;
+  }
+  if (f.matches('[data-nameform]')) {
+    const name = (f.elements.listname.value || '').trim();
+    const msg = layerEl.querySelector('.msg');
+    if (!name) { if (msg) msg.textContent = '목록 이름을 적어주세요.'; return; }
+    const rid = state.pending && state.pending.rename;
+    if (rid) {
+      const l = listOf(rid);
+      if (l) { l.name = name.slice(0, CONFIG.LIST_NAME_MAX); save(); }
+      closeLayer();
+      route();
+    } else {
+      const l = createList(name, []);
+      closeLayer();
+      if (l) location.hash = 'list/' + l.id;
+    }
+  }
+});
+
+function afterAdded(l, n) {
+  if (state.selecting) { state.selecting = false; state.picks = []; }
+  closeLayer();
+  if (/^#play\//.test(location.hash)) { updateNowPlaying(); return; }
+  state.view = 'lists';
+  save();
+  renderHome();
+  window.scrollTo(0, 0);
+}
+
+/* =========================================================
+   버튼 동작
+   ========================================================= */
+document.addEventListener('click', e => {
+  const sub = e.target.closest('a[data-sub]');
+  if (sub) {
+    if (state.kid) { e.preventDefault(); return; }
+    returnHash = location.hash;
+    closeLayer();
+    return;
+  }
+  const rm = e.target.closest('[data-rm]');
+  if (rm && !state.kid) {
+    const l = listOf(rm.dataset.list);
+    if (l) { l.ids = l.ids.filter(x => x !== rm.dataset.rm); save(); renderListPage(l); }
+    return;
+  }
+
+  const t = e.target.closest('button, [data-layer]');
+  if (!t) return;
+  const d = t.dataset;
+
+  if ('layer' in d) { if (e.target === t) closeLayer(); return; }
+  if ('closeLayer' in d) { closeLayer(); return; }
+  if (d.key) { pressKey(d.key); return; }
+  if ('unlock' in d) { state.quiz = null; newQuiz(); openUnlock(); return; }
+  if (state.kid && !('toggle' in d)) return;
+
+  if ('repick' in d || 'pick' in d) { openPick(); return; }
+  if (d.go) { startQueue(filterBy(state.age).map(p => p.id), d.go, filterLabel(), false); return; }
+
+  if ('lock' in d) { openLockSheet(); return; }
+  if ('lockOn' in d) { kidOn(); closeLayer(); return; }
+
+  if (d.age) { state.age = d.age; state.picks = []; save(); renderHome(); return; }
+  if (d.view) { state.view = d.view; state.selecting = false; state.picks = []; save(); renderHome(); return; }
+  if (d.cat != null) { state.cat = d.cat; save(); renderHome(); return; }
+  if ('seenNew' in d) { state.seenNew = newInfo().latest; save(); renderHome(); return; }
+  if ('closeHometip' in d) { state.homeTipClosed = true; save(); renderHome(); return; }
+  if ('install' in d) {
+    if (installPrompt) {
+      installPrompt.prompt();
+      installPrompt.userChoice.finally(() => { installPrompt = null; route(); });
+    }
+    return;
+  }
+
+  // 홈: 이어서 듣기 · 섞어 듣기 · 골라 듣기
+  if ('playall' in d) { startQueue(filterBy(state.age).map(p => p.id), null, filterLabel(), false); return; }
+  if ('shuffleall' in d) { startQueue(filterBy(state.age).map(p => p.id), null, filterLabel(), true); return; }
+  if ('selmode' in d) { state.selecting = !state.selecting; state.picks = []; renderHome(); return; }
+  if (d.pickid) {
+    const i = state.picks.indexOf(d.pickid);
+    if (i >= 0) state.picks.splice(i, 1); else state.picks.push(d.pickid);
+    const y = window.scrollY;
+    renderHome();
+    window.scrollTo(0, y);
+    return;
+  }
+  if ('picksclear' in d) { state.picks = []; const y = window.scrollY; renderHome(); window.scrollTo(0, y); return; }
+  if ('pickplay' in d || 'pickshuffle' in d) {
+    const ids = state.picks.slice();
+    state.selecting = false; state.picks = [];
+    startQueue(ids, null, '고른 노래', 'pickshuffle' in d);
+    return;
+  }
+  if ('picksave' in d) { openAddSheet(state.picks.slice()); return; }
+
+  // 노래 한 곡 누르기: 지금 보고 있는 목록을 이어서 들어요
+  if (d.play) {
+    if (layerEl.contains(t)) closeLayer();
+    const inExtra = !filterBy(state.age).some(p => p.id === d.play);
+    const ids = inExtra ? [d.play] : filterBy(state.age).map(p => p.id);
+    startQueue(ids, d.play, inExtra ? '' : filterLabel(), false);
+    return;
+  }
+
+  // 내 목록
+  if ('newlist' in d) { openNameSheet(null); return; }
+  if (d.listplay || d.listshuffle) {
+    const l = listOf(d.listplay || d.listshuffle);
+    if (l) startQueue(l.ids, null, l.name, !!d.listshuffle);
+    return;
+  }
+  if (d.listsong) {
+    const l = listOf(d.list);
+    if (l) startQueue(l.ids, d.listsong, l.name, false);
+    return;
+  }
+  if ('listback' in d) { state.view = 'lists'; save(); location.hash = ''; return; }
+  if (d.rename) { openNameSheet(d.rename); return; }
+  if (d.dellist) { openDeleteSheet(d.dellist); return; }
+  if (d.dellistok) {
+    state.lists = state.lists.filter(l => l.id !== d.dellistok);
+    state.view = 'lists';
+    save(); closeLayer(); location.hash = '';
+    return;
+  }
+  if (d.addto) {
+    const l = listOf(d.addto);
+    const ids = state.pending ? state.pending.ids : [];
+    if (!l || !ids.length) return;
+    if (ids.length === 1 && l.ids.includes(ids[0])) {
+      l.ids = l.ids.filter(x => x !== ids[0]);
+      save();
+      openAddSheet(ids, '"' + l.name + '"에서 뺐어요.');
+      updateNowPlaying();
+      return;
+    }
+    ids.forEach(id => { if (!l.ids.includes(id)) l.ids.push(id); });
+    save();
+    if (ids.length === 1) { openAddSheet(ids, '"' + l.name + '"에 담았어요.'); updateNowPlaying(); }
+    else afterAdded(l, ids.length);
+    return;
+  }
+
+  if ('back' in d) {
+    if (cameFromHome) { cameFromHome = false; history.back(); }
+    else location.hash = '';
+    return;
+  }
+  if ('subback' in d) {
+    const to = returnHash; returnHash = '';
+    location.hash = to && to !== location.hash ? to.replace(/^#/, '') : '';
+    return;
+  }
+
+  // 노래 듣기 화면
+  if ('fav' in d) { const id = currentId(); if (id) openAddSheet([id]); return; }
+  if (d.jump) { goTo(Number(d.jump), true); window.scrollTo(0, 0); return; }
+  if ('repeat' in d) { state.repeatOne = !state.repeatOne; save(); updateNowPlaying(); return; }
+  if ('shuffle' in d) { setShuffle(!(state.queue && state.queue.shuffle)); return; }
+  if ('prev' in d) { if (state.queue) goTo(state.queue.idx - 1, true); return; }
+  if ('next' in d) { if (state.queue) goTo(state.queue.idx + 1, true); return; }
+  if ('big' in d) { enterBig(); return; }
+  if ('unbig' in d) { exitBig(); return; }
+
+  const yt = player.yt;
+  if (!yt || !yt.getPlayerState) return;
+  if ('toggle' in d) {
+    yt.getPlayerState() === YT.PlayerState.PLAYING ? yt.pauseVideo() : yt.playVideo();
+  }
+});
+
+/* =========================================================
+   시작
+   ========================================================= */
+async function fetchCSV(url) {
+  const res = await fetch(url, { cache: 'no-store' });
+  if (!res.ok) throw new Error(res.status);
+  return parseCSV(await res.text());
+}
+
+async function init() {
+  renderHome();
+  const tasks = [];
+  if (CONFIG.SHEET_CSV_URL) {
+    tasks.push(fetchCSV(CONFIG.SHEET_CSV_URL).then(rows => {
+      const list = toSongs(rows);
+      if (!list.length) throw new Error('empty');
+      state.songs = list;
+    }).catch(() => {
+      state.loadError = true;
+      state.songs = toSongs(parseCSV(SAMPLE_CSV));
+    }));
+  } else {
+    state.songs = toSongs(parseCSV(SAMPLE_CSV));
+  }
+  if (CONFIG.ITEMS_CSV_URL) {
+    tasks.push(fetchCSV(CONFIG.ITEMS_CSV_URL).then(rows => { state.items = toItems(rows); }).catch(() => {}));
+  }
+  await Promise.all(tasks);
+  route();
+}
+
+init();
+</script>
+</body>
+</html>
