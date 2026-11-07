@@ -78,6 +78,14 @@
   .hd .sub { font-size: 12px; color: var(--muted); white-space: nowrap; }
   .hd h1 { margin: 0; font-size: clamp(26px, 8.6vw, 38px); line-height: 1.1; white-space: nowrap; }
 
+  .searchbox { position: relative; margin: 12px 20px 0; }
+  .searchbox input { width: 100%; min-height: 48px; border-radius: 14px; border: 2px solid var(--line); background: #fff; padding: 0 46px 0 42px; font-size: 16px; font-family: inherit; color: var(--ink); -webkit-appearance: none; appearance: none; }
+  .searchbox input:focus { outline: none; border-color: var(--ink); }
+  .searchbox input::-webkit-search-cancel-button { display: none; }
+  .searchbox .sicon2 { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); color: var(--muted); display: flex; pointer-events: none; }
+  .searchbox .qclear { position: absolute; right: 2px; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border: none; background: none; color: var(--muted); display: flex; align-items: center; justify-content: center; }
+  .searchbox .qclear[hidden] { display: none; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .pickbtn { width: calc(100% - 40px); margin: 4px 20px 0; min-height: 52px; border-radius: 16px; border: none; background: var(--yellow); font-size: 18px; display: flex; align-items: center; justify-content: center; gap: 8px; }
 
   .ages { margin: 14px 20px 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; align-items: center; }
@@ -491,6 +499,7 @@ Brahms' Lullaby (Bebefinn),https://www.youtube.com/watch?v=U9mazu0wKXk,"12~24개
    아이콘
    ========================================================= */
 const ICON = {
+  search: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>',
   back: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>',
   pause: '<svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>',
   play: '<svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>',
@@ -688,6 +697,7 @@ function cleanQueue(q) {
 }
 
 const state = {
+  q: '',
   songs: [],
   items: [],
   loadError: false,
@@ -743,6 +753,9 @@ function newInfo() {
   const latest = news.reduce((m, p) => (p.added > m ? p.added : m), '');
   return { count: news.length, latest, show: news.length > 0 && latest > state.seenNew };
 }
+
+function currentList() { return state.q.trim() ? searchList() : filterBy(state.age); }
+function currentLabel() { return state.q.trim() ? '검색: ' + state.q.trim() : filterLabel(); }
 
 function filterLabel() {
   return state.age + (state.cat ? ' ' + state.cat : '') + ' 동요';
@@ -804,7 +817,71 @@ function footerHTML() {
 /* =========================================================
    홈 화면
    ========================================================= */
-function renderHome() {
+/* =========================================================
+   검색 (나이·주제와 상관없이 전체에서 찾아요)
+   ========================================================= */
+function normText(s) { return String(s || '').toLowerCase().replace(/\s+/g, ''); }
+
+function searchList() {
+  const q = normText(state.q);
+  if (!q) return [];
+  return state.songs.filter(p => normText(p.title).includes(q) || normText(p.channel).includes(q));
+}
+
+function searchBoxHTML() {
+  return `
+    <div class="searchbox" role="search">
+      <span class="sicon2" aria-hidden="true">${ICON.search}</span>
+      <label for="q" class="sr">노래 제목·채널 검색</label>
+      <input type="search" id="q" placeholder="노래 제목·채널 검색" value="${esc(state.q)}" autocomplete="off" enterkeyhint="search">
+      <button type="button" class="qclear" aria-label="검색어 지우기" data-qclear ${state.q ? '' : 'hidden'}>${ICON.close}</button>
+    </div>`;
+}
+
+function searchResultsHTML() {
+  const list = searchList();
+  return `
+    <section class="sec">
+      <div class="row"><h2>"${esc(state.q.trim())}" 검색 결과 <span class="count">${list.length}곡</span></h2></div>
+        <div class="actions">
+          <button type="button" class="abtn main" data-playall>${ICON.playSm}이어서 듣기</button>
+          <button type="button" class="abtn" data-shuffleall>${ICON.shuffle}섞어 듣기</button>
+          <button type="button" class="abtn${state.selecting ? ' on' : ''}" aria-pressed="${state.selecting}" data-selmode>${ICON.select}${state.selecting ? '고르는 중' : '골라 듣기'}</button>
+        </div>
+        ${state.selecting ? '<p class="tip" style="margin:0 0 10px">듣고 싶은 노래를 누르면 순서대로 골라져요.</p>' : ''}
+      ${list.length ? `<div class="songs">${list.map((p, i) => songRowHTML(p, i, { selectable: true })).join('')}</div>`
+        : emptyHTML('찾는 노래가 없어요.<br>다른 말로 찾아보거나 띄어쓰기 없이 적어보세요.')}
+      <p style="margin:12px 0 0"><button type="button" class="minibtn" data-qclear>검색 지우고 처음 화면으로</button></p>
+    </section>`;
+}
+
+function homeBodyOrSearch() {
+  return state.q.trim() ? searchResultsHTML() : homeBodyHTML();
+}
+
+function updateHomeBody() {
+  const el = document.getElementById('homebody');
+  if (!el) return;
+  el.innerHTML = homeBodyOrSearch();
+  const c = document.querySelector('.qclear');
+  if (c) c.hidden = !state.q;
+  appEl.classList.toggle('selecting', state.selecting);
+  renderSelbar();
+}
+
+document.addEventListener('input', e => {
+  if (!e.target || e.target.id !== 'q') return;
+  state.q = e.target.value;
+  if (state.view !== 'all') state.view = 'all';
+  updateHomeBody();
+});
+
+document.addEventListener('keydown', e => {
+  if (e.target && e.target.id === 'q' && e.key === 'Enter') e.target.blur();
+});
+
+
+function homeBodyHTML() {
   const cats = allCats();
   if (state.songs.length && state.cat && !cats.includes(state.cat)) state.cat = '';
   const ni = newInfo();
@@ -862,18 +939,7 @@ function renderHome() {
   const shop = shopHTML();
 
   appEl.classList.toggle('selecting', state.selecting);
-  appEl.innerHTML = `
-    <div class="hero">
-      <header class="hd">
-        ${charImg('bear', 'char')}
-        <div class="txt">
-          <span class="sub">오늘의 동요 스케치북</span>
-          <h1 class="jua"><span style="color:#D9483A">뭐</span> <span style="color:#2F72C4">부</span><span style="color:#3E9C7D">를</span><span style="color:#8B5CC9">까</span>?</h1>
-        </div>
-      </header>
-    </div>
-
-    <button type="button" class="pickbtn jua" data-pick>${ICON.note}오늘 부를 노래 골라줘</button>
+  return `
 
     <div class="ages" role="tablist" aria-label="나이">
       ${AGES.map((a, i) => `<button type="button" role="tab" class="age a${i}${a === state.age ? ' on' : ''}" aria-selected="${a === state.age}" data-age="${esc(a)}"><span class="pegs" aria-hidden="true"><i></i><i></i></span>${esc(a)}</button>`).join('')}
@@ -903,6 +969,28 @@ function renderHome() {
     ${body}
 
     ${shop && !state.selecting ? `<div class="shopcard">${shop}</div>` : ''}
+
+    `;
+}
+
+function renderHome() {
+  appEl.classList.toggle('selecting', state.selecting);
+  appEl.innerHTML = `
+    <div class="hero">
+      <header class="hd">
+        ${charImg('bear', 'char')}
+        <div class="txt">
+          <span class="sub">오늘의 동요 스케치북</span>
+          <h1 class="jua"><span style="color:#D9483A">뭐</span> <span style="color:#2F72C4">부</span><span style="color:#3E9C7D">를</span><span style="color:#8B5CC9">까</span>?</h1>
+        </div>
+      </header>
+    </div>
+
+    <button type="button" class="pickbtn jua" data-pick>${ICON.note}오늘 부를 노래 골라줘</button>
+
+    ${searchBoxHTML()}
+
+    <div id="homebody">${homeBodyOrSearch()}</div>
 
     ${footerHTML()}`;
   renderSelbar();
@@ -934,7 +1022,7 @@ function listsHTML() {
 }
 
 function renderSelbar() {
-  if (!state.selecting || location.hash.replace(/^#/, '') !== '' || state.view !== 'all') { selbarEl.innerHTML = ''; return; }
+  if (!state.selecting || location.hash.replace(/^#/, '') !== '' || (state.view !== 'all' && !state.q.trim())) { selbarEl.innerHTML = ''; return; }
   const n = state.picks.length;
   selbarEl.innerHTML = `
     <div class="selbar"><div class="in">
@@ -1676,6 +1764,7 @@ document.addEventListener('click', e => {
   const t = e.target.closest('button, [data-layer]');
   if (!t) return;
   const d = t.dataset;
+  if ('qclear' in d) { state.q = ''; renderHome(); const q = document.getElementById('q'); if (q) q.focus(); return; }
 
   if ('layer' in d) { if (e.target === t) closeLayer(); return; }
   if ('closeLayer' in d) { closeLayer(); return; }
@@ -1703,8 +1792,8 @@ document.addEventListener('click', e => {
   }
 
   // 홈: 이어서 듣기 · 섞어 듣기 · 골라 듣기
-  if ('playall' in d) { startQueue(filterBy(state.age).map(p => p.id), null, filterLabel(), false); return; }
-  if ('shuffleall' in d) { startQueue(filterBy(state.age).map(p => p.id), null, filterLabel(), true); return; }
+  if ('playall' in d) { startQueue(currentList().map(p => p.id), null, currentLabel(), false); return; }
+  if ('shuffleall' in d) { startQueue(currentList().map(p => p.id), null, currentLabel(), true); return; }
   if ('selmode' in d) { state.selecting = !state.selecting; state.picks = []; renderHome(); return; }
   if (d.pickid) {
     const i = state.picks.indexOf(d.pickid);
@@ -1726,9 +1815,10 @@ document.addEventListener('click', e => {
   // 노래 한 곡 누르기: 지금 보고 있는 목록을 이어서 들어요
   if (d.play) {
     if (layerEl.contains(t)) closeLayer();
-    const inExtra = !filterBy(state.age).some(p => p.id === d.play);
-    const ids = inExtra ? [d.play] : filterBy(state.age).map(p => p.id);
-    startQueue(ids, d.play, inExtra ? '' : filterLabel(), false);
+    const cur = currentList();
+    const inExtra = !cur.some(p => p.id === d.play);
+    const ids = inExtra ? [d.play] : cur.map(p => p.id);
+    startQueue(ids, d.play, inExtra ? '' : currentLabel(), false);
     return;
   }
 
